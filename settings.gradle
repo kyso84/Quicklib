@@ -1,1 +1,1 @@
-include ':quicklib'
+include ':quicklib-android'

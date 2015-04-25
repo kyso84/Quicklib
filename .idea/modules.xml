@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Quicklib.iml" filepath="$PROJECT_DIR$/Quicklib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/quicklib/quicklib.iml" filepath="$PROJECT_DIR$/quicklib/quicklib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quicklib-android/quicklib-android.iml" filepath="$PROJECT_DIR$/quicklib-android/quicklib-android.iml" />
     </modules>
   </component>
 </project>
-
