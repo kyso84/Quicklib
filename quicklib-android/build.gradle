@@ -30,6 +30,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'joda-time:joda-time:2.7'
 
+    androidTestCompile "org.robolectric:robolectric:3.0"
     androidTestCompile 'org.mockito:mockito-all:1.9.5'
     androidTestCompile 'junit:junit:4.11'
     androidTestCompile 'org.mockito:mockito-all:1.10.8'
