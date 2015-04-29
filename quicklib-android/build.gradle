@@ -1,10 +1,10 @@
 apply plugin: 'android-library'
 apply plugin: 'maven'
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
+//
+//repositories {
+//    mavenLocal()
+//    mavenCentral()
+//}
 
 android {
     compileSdkVersion 22
@@ -16,27 +16,34 @@ android {
         versionCode 1
         versionName "1.0"
     }
+//    lintOptions {
+//        abortOnError true
+//    }
+//    dexOptions {
+//        preDexLibraries = false
+//    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'joda-time:joda-time:2.7'
 
-    androidTestCompile "org.robolectric:robolectric:3.0"
-    androidTestCompile 'org.mockito:mockito-all:1.9.5'
-    androidTestCompile 'junit:junit:4.11'
-    androidTestCompile 'org.mockito:mockito-all:1.10.8'
-    androidTestCompile 'org.assertj:assertj-core:1.7.0'
-    androidTestCompile 'org.hamcrest:hamcrest-core:1.1'
-    androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
-    androidTestCompile 'org.hamcrest:hamcrest-integration:1.1'
-
+    testCompile 'org.hamcrest:hamcrest-all:1.1'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    testCompile 'org.assertj:assertj-core:1.7.1'
 }
+
+apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'

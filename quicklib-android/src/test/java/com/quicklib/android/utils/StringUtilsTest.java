@@ -1,34 +1,39 @@
 package com.quicklib.android.utils;
 
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 
 /**
- * Created by bdescha1 on 15-04-25.
+ * Created by benoit on 15-04-25.
  */
 public class StringUtilsTest {
 
-    @org.junit.Before
+    private static final String TEST_STRING = "Go Habs Go!";
+
+    @Before
     public void setUp() throws Exception {
 
     }
 
-    @org.junit.Test
+    @Test
     public void testFromStream_WithNullInputStream_ReturnsEmptyString() throws Exception {
         String result = StringUtils.fromStream(null);
 
         assertThat(result).isEqualTo(StringUtils.EMPTY_STRING);
     }
 
-    @org.junit.Test
+    @Test
     public void testFromStream_WithInputStream_ReturnsString() throws Exception {
-        InputStream inputStream = mock(InputStream.class);
+        InputStream inputStream = new ByteArrayInputStream(TEST_STRING.getBytes());
 
         String result = StringUtils.fromStream(inputStream);
 
-        assertThat(result).isEqualTo(StringUtils.EMPTY_STRING);
+        assertThat(result).isEqualTo(TEST_STRING);
     }
 
 }
