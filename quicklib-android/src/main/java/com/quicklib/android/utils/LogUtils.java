@@ -30,7 +30,6 @@ import com.quicklib.android.core.Const;
  */
 public class LogUtils {
 
-    private static boolean debug = BuildConfig.DEBUG;
 
     public static String getStackTraceString(Throwable tr){
         return Log.getStackTraceString(tr);
@@ -41,148 +40,152 @@ public class LogUtils {
     public static int println(int priority, String tag, String msg){
         return Log.println(priority, tag, msg);
     }
-
-    public static void setDebug(boolean active){
-        debug = active;
-    }
-
     public static boolean isDebug(){
-        return debug;
+        return BuildConfig.DEBUG;
     }
 
     // DEBUG METHODS
+    public static int d(Throwable tr){
+        return d(tr.getMessage(), tr);
+    }
+
     public static int d(String msg){
         return d(Const.DEFAULT_TAG, msg);
-    }
-    public static int d(Throwable tr){
-        return d(Const.DEFAULT_TAG, tr.getMessage(), tr);
     }
     public static int d(String msg, Throwable tr){
         return d(Const.DEFAULT_TAG, msg, tr);
     }
     public static int d(String tag, String msg){
-        if(debug){
+        if(isDebug()){
             return Log.d(tag, msg);
         }
         return 0;
     }
     public static int d(String tag, String msg, Throwable tr){
-        if(debug){
+        if(isDebug()){
             return Log.d(tag, msg, tr);
         }
         return 0;
     }
 
     // ERROR METHODS
+    public static int e(Throwable tr){
+        return e(tr.getMessage(), tr);
+    }
+
     public static int e(String msg){
         return e(Const.DEFAULT_TAG, msg);
     }
-    public static int e(Throwable tr){
-        return e(Const.DEFAULT_TAG, tr.getMessage(), tr);
-    }
+
     public static int e(String msg, Throwable tr){
         return e(Const.DEFAULT_TAG, msg, tr);
     }
     public static int e(String tag, String msg){
-        if(debug){
-            return LogUtils.e(tag, msg);
+        if(isDebug()){
+            return Log.e(tag, msg);
         }
         return 0;
     }
     public static int e(String tag, String msg, Throwable tr){
-        if(debug){
-            return LogUtils.e(tag, msg, tr);
+        if(BuildConfig.DEBUG){
+            return Log.e(tag, msg, tr);
         }
         return 0;
     }
 
     // INFO METHODS
+    public static int i(Throwable tr){
+        return i(tr.getMessage(), tr);
+    }
+
     public static int i(String msg){
         return i(Const.DEFAULT_TAG, msg);
     }
-    public static int i(Throwable tr){
-        return i(Const.DEFAULT_TAG, tr.getMessage(), tr);
-    }
+
     public static int i(String msg, Throwable tr){
         return i(Const.DEFAULT_TAG, msg, tr);
     }
     public static int i(String tag, String msg){
-        if(debug){
-            return LogUtils.e(tag, msg);
+        if(isDebug()){
+            return Log.i(tag, msg);
         }
         return 0;
     }
     public static int i(String tag, String msg, Throwable tr){
-        if(debug){
+        if(isDebug()){
             return Log.i(tag, msg, tr);
         }
         return 0;
     }
 
     // VERBOSE METHODS
+    public static int v(Throwable tr){
+        return v(tr.getMessage(), tr);
+    }
+
     public static int v(String msg){
         return v(Const.DEFAULT_TAG, msg);
     }
-    public static int v(Throwable tr){
-        return v(Const.DEFAULT_TAG, tr.getMessage(), tr);
-    }
+
     public static int v(String msg, Throwable tr){
         return v(Const.DEFAULT_TAG, msg, tr);
     }
     public static int v(String tag, String msg, Throwable tr){
-        if(debug){
+        if(isDebug()){
             return Log.v(tag, msg, tr);
         }
         return 0;
     }
     public static int v(String tag, String msg){
-        if(debug){
+        if(isDebug()){
             return Log.v(tag, msg);
         }
         return 0;
     }
 
     // WARNING METHODS
+    public static int w(Throwable tr){
+        return w(tr.getMessage(), tr);
+    }
+
     public static int w(  String msg){
         return w(Const.DEFAULT_TAG, msg);
-    }
-    public static int w(Throwable tr){
-        return w(Const.DEFAULT_TAG, tr.getMessage(), tr);
     }
     public static int w(String msg, Throwable tr){
         return w(Const.DEFAULT_TAG, msg, tr);
     }
     public static int w(String tag, String msg){
-        if(debug){
+        if(isDebug()){
             return Log.w(tag, msg);
         }
         return 0;
     }
     public static int w(String tag, String msg, Throwable tr){
-        if(debug){
+        if(isDebug()){
             return Log.w(tag, msg, tr);
         }
         return 0;
     }
 
     // WHAT A TERRIBLE FAILURE METHODS (or "What The Fuck" Methods)
+    public static int wtf(Throwable tr){
+        return wtf(tr.getMessage(), tr);
+    }
+
     public static int wtf(  String msg){
         return wtf(Const.DEFAULT_TAG, msg);
-    }
-    public static int wtf(Throwable tr){
-        return e(Const.DEFAULT_TAG, tr);
     }
     public static int wtf(String msg, Throwable tr){
         return wtf(Const.DEFAULT_TAG, msg, tr);
     }
     public static int wtf(String tag, String msg){
-        if(debug){
+        if(isDebug()){
             return Log.wtf(tag, msg);
         }
         return 0;
     }
     public static int wtf(String tag, String msg, Throwable tr){
-        if(debug){
+        if(isDebug()){
             return Log.wtf(tag, msg, tr);
         }
         return 0;
