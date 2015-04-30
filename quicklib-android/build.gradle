@@ -35,15 +35,5 @@ dependencies {
     testCompile 'org.assertj:assertj-core:1.7.1'
 }
 
-android.libraryVariants.all { variant ->
-    def name = variant.buildType.name
-    if (!name.equals(com.android.builder.BuilderConstants.DEBUG)) {
-        def task = project.tasks.create "jar${name.capitalize()}", Jar
-        task.dependsOn variant.javaCompile
-        task.from variant.javaCompile.destinationDir
-        artifacts.add('archives', task);
-    }
-}
-
 
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
