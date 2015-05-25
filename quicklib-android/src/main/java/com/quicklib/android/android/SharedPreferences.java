@@ -1,6 +1,8 @@
 package com.quicklib.android.android;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
@@ -15,10 +17,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This class contains all project constants
+ * This bring new features to standard SharedPreferences
  *
  * @author Benoit Deschanel
- * @since 15-04-30
  * Copyright (C) 2015 Quicklib
  */
 public class SharedPreferences implements android.content.SharedPreferences {
@@ -218,6 +219,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
         }
 
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         public Editor putStringSet(String key, Set<String> values) {
             editor.putStringSet(key, values);
