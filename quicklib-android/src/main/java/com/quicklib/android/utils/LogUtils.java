@@ -168,7 +168,7 @@ public class LogUtils {
         return 0;
     }
 
-    // WHAT A TERRIBLE FAILURE METHODS (or "What The Fuck" Methods)
+    // WHAT A TERRIBLE FAILURE METHODS (or "What's The Fuck" Methods)
     public static int wtf(Throwable tr){
         return wtf(tr.getMessage(), tr);
     }
