@@ -31,6 +31,7 @@ import com.quicklib.android.core.Const;
  */
 public class LogUtils {
 
+    private static boolean debug = false;
 
     public static String getStackTraceString(Throwable tr){
         return Log.getStackTraceString(tr);
@@ -42,7 +43,11 @@ public class LogUtils {
         return Log.println(priority, tag, msg);
     }
     public static boolean isDebug(){
-        return BuildConfig.DEBUG;
+        return debug;
+    }
+
+    public static void setDebug(boolean debug){
+        LogUtils.debug = debug;
     }
 
     // DEBUG METHODS
