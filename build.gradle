@@ -27,3 +27,23 @@ def isReleaseBuild() {
 }
 
 apply plugin: 'android-reporting'
+
+def getVersionCode() {
+    def command = "git rev-list --no-merges --count HEAD"
+    def gitProcess = command.execute()
+    gitProcess.waitFor()
+    def exitValue = gitProcess.exitValue()
+
+    if (exitValue == 0) {
+        def matchNumberOfCommits = gitProcess.in.text
+        def prefix = "0"
+
+        println "Number of commits: $matchNumberOfCommits"
+        return new Integer(prefix + matchNumberOfCommits.toString().trim()) + 100
+    } else {
+        println "Git ERROR - Failed to run 'git rev-list'"
+        return -1
+    }
+}
+
+
