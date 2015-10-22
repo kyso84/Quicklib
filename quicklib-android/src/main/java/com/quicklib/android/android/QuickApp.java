@@ -18,7 +18,7 @@ package com.quicklib.android.android;
 import android.app.Application;
 import android.content.Context;
 
-import com.quicklib.android.utils.LogUtils;
+import com.quicklib.android.tool.Logger;
 
 
 /**
@@ -28,7 +28,7 @@ import com.quicklib.android.utils.LogUtils;
  * @since 15-04-30
  * Copyright (C) 2015 Quicklib
  */
-public class App extends Application{
+public class QuickApp extends Application{
 
     private static Context context;
 
@@ -43,7 +43,16 @@ public class App extends Application{
     }
 
     public void setDebug(boolean debug){
-        LogUtils.setDebug(debug);
+        Logger.setDebug(debug);
     }
+
+    /*
+        --- MULTIDEX ---
+        @Override
+        protected void attachBaseContext(Context base) {
+          super.attachBaseContext(base);
+          MultiDex.install(this);
+        }
+     */
 
 }

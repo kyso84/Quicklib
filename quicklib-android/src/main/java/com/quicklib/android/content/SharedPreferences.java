@@ -1,4 +1,4 @@
-package com.quicklib.android.android;
+package com.quicklib.android.content;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.quicklib.android.utils.LogUtils;
+import com.quicklib.android.tool.Logger;
 
 import java.util.Collections;
 import java.util.List;
@@ -111,7 +111,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
         try {
             return gson.fromJson(sharedPreferences.getString(key, "[]"), String[].class );
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return new String[0];
         }
     }
@@ -121,7 +121,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
             return gson.fromJson(sharedPreferences.getString(key, "[]"), new TypeToken<List<String>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return Collections.emptyList();
         }
     }
@@ -130,7 +130,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
         try {
             return gson.fromJson(sharedPreferences.getString(key, "[]"),  boolean[].class);
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return new boolean[0];
         }
     }
@@ -140,7 +140,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
             return gson.fromJson(sharedPreferences.getString(key, "[]"), new TypeToken<List<Boolean>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return Collections.emptyList();
         }
     }
@@ -149,7 +149,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
         try {
             return gson.fromJson(sharedPreferences.getString(key, "[]"), int[].class);
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return new int[0];
         }
     }
@@ -159,7 +159,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
             return gson.fromJson(sharedPreferences.getString(key, "[]"), new TypeToken<List<Integer>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return Collections.emptyList();
         }
     }
@@ -169,7 +169,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
         try {
             return gson.fromJson(sharedPreferences.getString(key, "[]"), float[].class);
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return new float[0];
         }
     }
@@ -179,7 +179,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
             return gson.fromJson(sharedPreferences.getString(key, "[]"), new TypeToken<List<Float>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return Collections.emptyList();
         }
     }
@@ -188,7 +188,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
         try {
             return gson.fromJson(sharedPreferences.getString(key, "[]"), long[].class);
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return new long[0];
         }
     }
@@ -198,7 +198,7 @@ public class SharedPreferences implements android.content.SharedPreferences {
             return gson.fromJson(sharedPreferences.getString(key, "[]"), new TypeToken<List<Long>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            LogUtils.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
+            Logger.e("Unable to parse '" + key + "' with value=" + sharedPreferences.getString(key, "[]"), e);
             return Collections.emptyList();
         }
     }

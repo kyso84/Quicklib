@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.quicklib.android.utils;
+package com.quicklib.android.tool;
 
 import android.util.Log;
 
@@ -29,7 +29,7 @@ import com.quicklib.android.core.Const;
  * @since 15-04-30
  * Copyright (C) 2015 Quicklib
  */
-public class LogUtils {
+public class Logger {
 
     private static boolean debug = false;
 
@@ -47,7 +47,7 @@ public class LogUtils {
     }
 
     public static void setDebug(boolean debug){
-        LogUtils.debug = debug;
+        Logger.debug = debug;
     }
 
     // DEBUG METHODS

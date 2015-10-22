@@ -15,6 +15,8 @@
  */
 package com.quicklib.android.utils;
 
+import com.quicklib.android.tool.Logger;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,14 +47,14 @@ public class StringUtils {
                 } while (count >= 0);
                 ret = out.toString();
             } catch (IOException e) {
-                LogUtils.e(e);
+                Logger.e(e);
             } finally {
                 try {
                     if( is != null ) {
                         is.close();
                     }
                 } catch (IOException ignored) {
-                    LogUtils.e(ignored);
+                    Logger.e(ignored);
                     ret = "";
                 }
             }
