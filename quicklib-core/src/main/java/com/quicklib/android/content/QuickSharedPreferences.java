@@ -2,6 +2,7 @@ package com.quicklib.android.content;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -17,24 +18,24 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This bring new features to standard SharedPreferences
+ * This bring new features to standard QuickSharedPreferences
  *
  * @author Benoit Deschanel
  * Copyright (C) 2015 Quicklib
  */
-public class SharedPreferences implements android.content.SharedPreferences {
+public class QuickSharedPreferences implements SharedPreferences {
 
     private static final Gson gson = new Gson();
 
 
     private android.content.SharedPreferences sharedPreferences;
 
-    public SharedPreferences(Context context) {
+    public QuickSharedPreferences(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
 
-    public SharedPreferences(Context context, String prefName) {
+    public QuickSharedPreferences(Context context, String prefName) {
         sharedPreferences = context.getSharedPreferences(prefName, 0);
     }
 

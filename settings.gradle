@@ -1,1 +1,1 @@
-include ':quicklib-android'
+include ':quicklib-core', ':quicklib-picasso', ':quicklib-views'

@@ -1,16 +1,13 @@
-package com.quicklib.android.adapter;
+package com.quicklib.android.views.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-
-import com.quicklib.android.tool.Logger;
-import com.quicklib.android.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+import java.util.TimeZone;
 
 
 public abstract class MonthlyCalendarAdapter<CVH extends RecyclerView.ViewHolder, HVH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter  {
@@ -32,20 +29,26 @@ public abstract class MonthlyCalendarAdapter<CVH extends RecyclerView.ViewHolder
 
         // determine the cell for current month's beginning
         workCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        int monthBeginningCell = workCalendar.get(Calendar.DAY_OF_WEEK) - workCalendar.getFirstDayOfWeek();
+        workCalendar.set(Calendar.HOUR_OF_DAY, 12);
+        workCalendar.set(Calendar.MINUTE, 0);
+        int monthBeginningCell = 0;
+        if (workCalendar.get(Calendar.DAY_OF_WEEK) < workCalendar.getFirstDayOfWeek()) {
+            monthBeginningCell = 7 - workCalendar.get(Calendar.DAY_OF_WEEK);
+        } else {
+            monthBeginningCell = workCalendar.get(Calendar.DAY_OF_WEEK) - workCalendar.getFirstDayOfWeek();
+        }
 
         // move calendar backwards to the beginning of the week
         workCalendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
 
-
         dateList.add(workCalendar.getTime());
         workCalendar.add(Calendar.DATE, 1);
         //noinspection ResourceType
-        while( DateUtils.isSameMonth(mainCalendar, workCalendar) || workCalendar.getFirstDayOfWeek() != workCalendar.get(Calendar.DAY_OF_WEEK) ){
+        while( isSameMonth(mainCalendar, workCalendar) || workCalendar.getFirstDayOfWeek() != workCalendar.get(Calendar.DAY_OF_WEEK) ){
             dateList.add(workCalendar.getTime());
             workCalendar.add(Calendar.DATE, 1);
         }
-        Logger.d("");
+
     }
 
 
@@ -123,7 +126,7 @@ public abstract class MonthlyCalendarAdapter<CVH extends RecyclerView.ViewHolder
                 break;
             case ITEM_VIEW_TYPE_CELL:
             default:
-                onBindCellViewHolder((CVH) holder, date, DateUtils.isSameMonth(mainCalendar.getTime(), date) );
+                onBindCellViewHolder((CVH) holder, date, isSameMonth(mainCalendar.getTime(), date) );
                 break;
         }
     }
@@ -155,4 +158,22 @@ public abstract class MonthlyCalendarAdapter<CVH extends RecyclerView.ViewHolder
         workCalendar.setTimeInMillis(timestamp);
         return workCalendar;
     }
+
+    private boolean isSameMonth(Calendar calendar1, Calendar calendar2) {
+        return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) && calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH);
+    }
+
+
+    private boolean isSameMonth(Date date1, Date date2) {
+        return isSameMonth(date1, date2, TimeZone.getDefault());
+    }
+
+    private boolean isSameMonth(Date date1, Date date2, TimeZone timeZone) {
+        Calendar calendar1 = Calendar.getInstance(timeZone);
+        calendar1.setTime(date1);
+        Calendar calendar2 = Calendar.getInstance(timeZone);
+        calendar2.setTime(date2);
+        return isSameMonth(calendar1, calendar2);
+    }
+
 }

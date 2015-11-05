@@ -32,6 +32,8 @@ public class StringUtils {
 
     public static final String EMPTY_STRING = "";
 
+
+
     public static String fromStream(InputStream is) {
         String ret = "";
         if (is != null) {
