@@ -35,7 +35,7 @@ dependencies {
     compile('com.google.android.gms:play-services-maps:' + playservices_version)
 
     compile project(":quicklib-core")
-    compile('com.squareup.picasso: picasso: 2.5.2')
+    compile('com.squareup.picasso:picasso:2.5.2')
 
     testCompile 'org.hamcrest:hamcrest-all:1.1'
     testCompile 'junit:junit:4.12'
