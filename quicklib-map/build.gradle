@@ -23,7 +23,7 @@ android {
     }
 }
 
-
+def playservices_version = '9.4.0'
 def support_version = '24.2.0'
 
 dependencies {
@@ -31,13 +31,16 @@ dependencies {
     compile('com.android.support:support-compat:' + support_version)
     compile('com.android.support:support-core-utils:' + support_version)
 
+    compile('com.google.android.gms:play-services-maps:' + playservices_version)
 
-    compile 'com.google.code.gson:gson:2.3.1'
+    compile project(":quicklib-core")
+    compile('com.squareup.picasso: picasso: 2.5.2')
 
     testCompile 'org.hamcrest:hamcrest-all:1.1'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'org.assertj:assertj-core:1.7.1'
+
 }
 
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'

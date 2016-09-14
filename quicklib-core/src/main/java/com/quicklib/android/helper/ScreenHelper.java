@@ -1,4 +1,4 @@
-package com.quicklib.android.utils;
+package com.quicklib.android.helper;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 
-public class ScreenUtils {
+public class ScreenHelper {
 	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	public static ScreenSize getScreenSize(Context context) {

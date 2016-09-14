@@ -18,8 +18,6 @@ package com.quicklib.android.android;
 import android.app.Application;
 import android.content.Context;
 
-import com.quicklib.android.tool.Logger;
-
 
 /**
  * This class overload Android's Application and provides useful features
@@ -40,10 +38,6 @@ public class QuickApp extends Application{
 
     public static Context getContext() {
         return context;
-    }
-
-    public void setDebug(boolean debug){
-        Logger.setDebug(debug);
     }
 
     /*

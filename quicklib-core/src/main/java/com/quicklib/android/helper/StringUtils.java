@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.quicklib.android.utils;
+package com.quicklib.android.helper;
 
-import com.quicklib.android.tool.Logger;
-
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * This class provides useful features to manipulate Strings
@@ -34,10 +34,14 @@ public class StringUtils {
 
 
 
-    public static String fromStream(InputStream is) {
+    public static String fromStream(InputStream is)  {
         String ret = "";
         if (is != null) {
             try {
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+
                 ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
                 byte[] buffer = new byte[1024];
                 int count;
@@ -49,14 +53,12 @@ public class StringUtils {
                 } while (count >= 0);
                 ret = out.toString();
             } catch (IOException e) {
-                Logger.e(e);
             } finally {
                 try {
                     if( is != null ) {
                         is.close();
                     }
                 } catch (IOException ignored) {
-                    Logger.e(ignored);
                     ret = "";
                 }
             }

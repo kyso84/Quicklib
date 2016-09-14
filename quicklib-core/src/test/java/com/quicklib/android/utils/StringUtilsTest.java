@@ -15,6 +15,8 @@
  */
 package com.quicklib.android.utils;
 
+import com.quicklib.android.helper.StringUtils;
+
 import org.junit.Before;
 import org.junit.Test;
 

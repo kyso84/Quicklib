@@ -1,4 +1,4 @@
-package com.quicklib.android.picasso;
+package com.quicklib.android.map;
 
 
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.graphics.drawable.PictureDrawable;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-import com.quicklib.android.utils.ScreenUtils;
+import com.quicklib.android.helper.ScreenHelper;
 import com.squareup.picasso.Downloader;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Request;
@@ -26,7 +26,7 @@ public class SVGRequestHandler extends RequestHandler {
     private final float maxSize;
 
     public SVGRequestHandler(Downloader downloader, Context context) {
-        ScreenUtils.ScreenSize screenSize = ScreenUtils.getScreenSize(context);
+        ScreenHelper.ScreenSize screenSize = ScreenHelper.getScreenSize(context);
         this.downloader = downloader;
         this.maxSize = Math.min(screenSize.getWidth(), screenSize.getHeight());
     }

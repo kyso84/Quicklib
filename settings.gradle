@@ -1,1 +1,1 @@
-include ':quicklib-core', ':quicklib-picasso', ':quicklib-views'
+include ':quicklib-core', ':quicklib-map', ':quicklib-calendar'

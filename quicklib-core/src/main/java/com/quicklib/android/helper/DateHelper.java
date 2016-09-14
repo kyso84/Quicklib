@@ -1,4 +1,4 @@
-package com.quicklib.android.utils;
+package com.quicklib.android.helper;
 
 
 import java.text.DateFormat;
@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class DateUtils {
+public class DateHelper {
 
 
     public static TimeZone getDefaultTimeZone(){
