@@ -28,16 +28,20 @@ import android.content.Context;
  */
 public class QuickApp extends Application{
 
-    private static Context context;
+    private static QuickApp me;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        context = getApplicationContext();
+        me = this;
+    }
+
+    public static QuickApp getApplication() {
+        return me;
     }
 
     public static Context getContext() {
-        return context;
+        return me.getApplicationContext();
     }
 
     /*

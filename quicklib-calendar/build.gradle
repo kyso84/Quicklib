@@ -29,8 +29,9 @@ def support_version = '24.2.0'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile('com.android.support:support-compat:' + support_version)
-    compile('com.android.support:support-core-utils:' + support_version)
+    compile project(":quicklib-core")
+
+
     compile('com.android.support:support-core-ui:' + support_version)
     compile('com.android.support:support-media-compat:' + support_version)
     compile('com.android.support:support-fragment:' + support_version)
@@ -38,9 +39,6 @@ dependencies {
     compile('com.android.support:appcompat-v7:' + support_version)
     compile('com.android.support:recyclerview-v7:' + support_version)
     compile('com.android.support:design:' + support_version)
-
-
-    testCompile 'junit:junit:4.12'
 }
 
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'

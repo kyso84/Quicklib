@@ -11,15 +11,9 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.ypg.find.core.App;
-
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-
-import timber.log.Timber;
 
 /**
  * @author bdescha1
@@ -38,8 +32,8 @@ public class ContextHelper {
         return context.getResources().getDimension(dimId);
     }
 
-    public static int getDimenPx(@DimenRes int dimenId) {
-        return App.get().getResources().getDimensionPixelSize(dimenId);
+    public static int getDimenPx(Context context, @DimenRes int dimenId) {
+        return context.getResources().getDimensionPixelSize(dimenId);
     }
 
     public static void showKeyboard(View view) {
@@ -90,40 +84,59 @@ public class ContextHelper {
         }
     }
 
-    public static String readAssetFile(Context context, String filePath) {
+    public static String readFile(Context context, File file) {
         InputStream is = null;
-        BufferedReader in = null;
-
-
-
-        StringBuilder result = new StringBuilder();
-        InputStream is = null;
-        BufferedReader in = null;
         try {
-            is = context.getAssets().open(filePath);
-            in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
-
-            is = context.getAssets().open(filePath);
-            in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-            return StringUtils.fromStream()
-
-
-
-        } catch (UnsupportedEncodingException e) {
+            is = context.openFileInput(file.getAbsolutePath());
+            return StringUtils.fromStream(is);
         } catch (IOException e) {
         } finally {
-            if (in != null) {
+            if (is != null) {
                 try {
-                    in.close();
+                    is.close();
                 } catch (IOException e) {
+                    return "";
                 }
             }
         }
-        return result.toString();
+        return "";
     }
 
+    public static String readFile(Context context, String filePath) {
+        InputStream is = null;
+        try {
+            is = context.openFileInput(filePath);
+            return StringUtils.fromStream(is);
+        } catch (IOException e) {
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    return "";
+                }
+            }
+        }
+        return "";
+    }
 
+    public static String readAssetFile(Context context, String filePath) {
+        InputStream is = null;
+        try {
+            is = context.getAssets().open(filePath);
+            return StringUtils.fromStream(is);
+        } catch (IOException e) {
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    return "";
+                }
+            }
+        }
+        return "";
+    }
 
 
 }

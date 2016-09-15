@@ -5,9 +5,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.ypg.find.R;
+import com.quicklib.android.R;
 
-import timber.log.Timber;
 
 /**
  * @author bdescha1

@@ -16,7 +16,6 @@
 package com.quicklib.android.helper;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,37 +34,26 @@ public class StringUtils {
 
 
     public static String fromStream(InputStream is)  {
-        String ret = "";
+        StringBuilder out = new StringBuilder();
         if (is != null) {
             try {
-
-                BufferedReader in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
-
-                ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-                byte[] buffer = new byte[1024];
-                int count;
-                do {
-                    count = is.read(buffer);
-                    if (count > 0) {
-                        out.write(buffer, 0, count);
-                    }
-                } while (count >= 0);
-                ret = out.toString();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    out.append(line);
+                }
             } catch (IOException e) {
             } finally {
-                try {
-                    if( is != null ) {
+                if (is != null) {
+                    try {
                         is.close();
+                    } catch (IOException e) {
+                        return "";
                     }
-                } catch (IOException ignored) {
-                    ret = "";
                 }
             }
-        }else{
-            ret = "";
         }
-        return ret;
+        return out.toString();
     }
 
 

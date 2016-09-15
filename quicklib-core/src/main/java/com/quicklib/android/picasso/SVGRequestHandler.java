@@ -1,4 +1,4 @@
-package com.quicklib.android.map;
+package com.quicklib.android.picasso;
 
 
 import android.content.Context;
@@ -17,7 +17,7 @@ import com.squareup.picasso.RequestHandler;
 import java.io.IOException;
 import java.util.Locale;
 
-public class SVGRequestHandler extends RequestHandler {
+public class SvgRequestHandler extends RequestHandler {
 
     private static final String SCHEME_HTTP = "http";
     private static final String SCHEME_HTTPS = "https";
@@ -25,13 +25,13 @@ public class SVGRequestHandler extends RequestHandler {
     private final Downloader downloader;
     private final float maxSize;
 
-    public SVGRequestHandler(Downloader downloader, Context context) {
+    public SvgRequestHandler(Downloader downloader, Context context) {
         ScreenHelper.ScreenSize screenSize = ScreenHelper.getScreenSize(context);
         this.downloader = downloader;
         this.maxSize = Math.min(screenSize.getWidth(), screenSize.getHeight());
     }
 
-    public SVGRequestHandler(Downloader downloader, float maxSize) {
+    public SvgRequestHandler(Downloader downloader, float maxSize) {
         this.downloader = downloader;
         this.maxSize = maxSize;
     }

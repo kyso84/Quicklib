@@ -14,10 +14,6 @@ import android.support.v4.content.ContextCompat;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.ypg.find.R;
-import com.ypg.find.core.Const;
 
 /**
  * @author bdescha1
@@ -26,13 +22,8 @@ import com.ypg.find.core.Const;
  */
 public class MapHelper {
 
-    public static final LatLng YUKON = getLatLng(62.385278d, -140.893056);
-    public static final LatLng NEWFOUNDLAND = getLatLng(47.862778, -53.083611);
-    public static final LatLngBounds CANADA = LatLngBounds.builder()
-            .include(YUKON)
-            .include(NEWFOUNDLAND)
-            .build();
 
+    private static final String KEY_MAP_BUNDLE = "map_bundle";
 
     public static com.google.android.gms.maps.model.LatLng getLatLng(double lat, double lng) {
         return new com.google.android.gms.maps.model.LatLng(lat, lng);
@@ -40,19 +31,6 @@ public class MapHelper {
 
     public static com.google.android.gms.maps.model.LatLng getLatLng(Location location) {
         return new com.google.android.gms.maps.model.LatLng(location.getLatitude(), location.getLongitude());
-    }
-
-    public static String getStreetViewUrl(Context context, Location location) {
-        return getStreetViewUrl(context, location.getLatitude(), location.getLongitude());
-    }
-
-
-    public static String getStreetViewUrl(Context context, LatLng latLng) {
-        return getStreetViewUrl(context, latLng.latitude, latLng.longitude);
-    }
-
-    public static String getStreetViewUrl(Context context, double lat, double lng) {
-        return "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=" + lat + "," + lng + "&key=" + context.getString(R.string.google_key_android);
     }
 
     public static BitmapDescriptor getBitmapDescriptor(Context context, @DrawableRes int id, @DimenRes int sizeId) {
@@ -76,7 +54,7 @@ public class MapHelper {
 
     public static Bundle getMapBundle(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            return savedInstanceState.getBundle(Const.KEY_MAP_BUNDLE);
+            return savedInstanceState.getBundle(KEY_MAP_BUNDLE);
         }
         return null;
     }
@@ -85,37 +63,8 @@ public class MapHelper {
         if (mapView != null) {
             Bundle safeBundle = new Bundle();
             mapView.onSaveInstanceState(safeBundle);
-            outState.putBundle(Const.KEY_MAP_BUNDLE, safeBundle);
+            outState.putBundle(KEY_MAP_BUNDLE, safeBundle);
         }
     }
-
-//    public static void test(GoogleMap map, ){
-//
-//        final long duration = 400;
-//        final Handler handler = new Handler();
-//        final long start = SystemClock.uptimeMillis();
-//        Projection proj = map.getProjection();
-//
-//        Point startPoint = proj.toScreenLocation(marker.getPosition());
-//        final LatLng startLatLng = proj.fromScreenLocation(startPoint);
-//
-//        final Interpolator interpolator = new LinearInterpolator();
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                long elapsed = SystemClock.uptimeMillis() - start;
-//                float t = interpolator.getInterpolation((float) elapsed / duration);
-//                double lng = t * target.longitude + (1 - t) * startLatLng.longitude;
-//                double lat = t * target.latitude + (1 - t) * startLatLng.latitude;
-//                marker.setPosition(new LatLng(lat, lng));
-//                if (t < 1.0) {
-//                    // Post again 10ms later.
-//                    handler.postDelayed(this, 10);
-//                } else {
-//                    // animation ended
-//                }
-//            }
-//        });
-//    }
 
 }

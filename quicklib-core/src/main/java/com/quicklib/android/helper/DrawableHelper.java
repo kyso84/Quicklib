@@ -1,6 +1,7 @@
 package com.quicklib.android.helper;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
@@ -8,8 +9,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-
-import com.ypg.find.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,16 +20,29 @@ import java.io.InputStream;
  */
 public class DrawableHelper {
     public static Drawable getAssetImage(Context context, String imagePath) {
+        return getAssetImage(context, imagePath, 0);
+    }
+
+    public static Drawable getAssetImage(Context context, String imagePath, @DrawableRes int fallbackDrawableId) {
         try {
             InputStream ims = context.getAssets().open(imagePath);
             return Drawable.createFromStream(ims, null);
         } catch (IOException ex) {
-            return ContextCompat.getDrawable(context, R.mipmap.ic_launcher);
+            if (fallbackDrawableId != 0) {
+                return ContextCompat.getDrawable(context, fallbackDrawableId);
+            }
         }
+        return null;
     }
 
 
-    public static Drawable getTintedDrawable(Context context, @DrawableRes Drawable drawable, @ColorRes int colorId) {
+    public static Drawable getTintedDrawable(Context context, @DrawableRes int drawableId, @ColorRes int colorId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        return getTintedDrawable(context, drawable, colorId);
+    }
+
+
+    public static Drawable getTintedDrawable(Context context, Drawable drawable, @ColorRes int colorId) {
         if (drawable != null) {
             drawable = DrawableCompat.wrap(drawable);
             try {
@@ -43,28 +55,22 @@ public class DrawableHelper {
     }
 
 
-    public static Drawable getTintedDrawable(Context context, @DrawableRes int drawableId, @ColorRes int colorId) {
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-        return getTintedDrawable(context, drawable, colorId);
-    }
-
-
-    public static Drawable getColoredDrawable(Context context, @DrawableRes Drawable drawable, @ColorInt int colorId) {
+    public static Drawable getTintedDrawable(Drawable drawable, @ColorInt int colorId) {
         if (drawable != null) {
             drawable = DrawableCompat.wrap(drawable);
-            try {
-                DrawableCompat.setTintList(drawable.mutate(), ContextCompat.getColorStateList(context, colorId));
-            } catch (Resources.NotFoundException e) {
-                DrawableCompat.setTint(drawable.mutate(), colorId);
-            }
+            DrawableCompat.setTint(drawable.mutate(), colorId);
         }
         return drawable;
     }
 
 
-    public static Drawable getColoredDrawable(Context context, @DrawableRes int drawableId, @ColorInt int colorId) {
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-        return getColoredDrawable(context, drawable, colorId);
+    public static Drawable getTintedDrawable(Drawable drawable, ColorStateList colorStateList) {
+        if (drawable != null) {
+            drawable = DrawableCompat.wrap(drawable);
+            DrawableCompat.setTintList(drawable.mutate(), colorStateList);
+        }
+        return drawable;
     }
+
 
 }
