@@ -28,7 +28,7 @@ public class JavaHelper {
     }
 
     private static <T, E> Map<T, E> getMapIntersec(Map<T, E> mapOne, Set<T> keyList) {
-        Map<T, E> result = new HashMap();
+        Map<T, E> result = new HashMap<>();
         for (T key : mapOne.keySet()) {
             if (keyList.contains(key)) {
                 result.put(key, mapOne.get(key));
@@ -42,7 +42,7 @@ public class JavaHelper {
     }
 
     private static <T, E> Map<T, E> getMapReverseIntersec(Map<T, E> mapOne, Set<T> keyList) {
-        Map<T, E> result = new HashMap();
+        Map<T, E> result = new HashMap<>();
         for (T key : mapOne.keySet()) {
             if (!keyList.contains(key)) {
                 result.put(key, mapOne.get(key));
