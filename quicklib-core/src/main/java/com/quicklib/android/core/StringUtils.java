@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.quicklib.android.helper;
+package com.quicklib.android.core;
 
 import java.io.BufferedReader;
 import java.io.IOException;

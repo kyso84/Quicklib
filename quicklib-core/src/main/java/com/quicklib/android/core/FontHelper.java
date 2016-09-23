@@ -1,4 +1,4 @@
-package com.quicklib.android.helper;
+package com.quicklib.android.core;
 
 import android.content.Context;
 import android.graphics.Typeface;

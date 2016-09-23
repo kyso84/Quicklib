@@ -22,14 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':quicklib-core')
-//
-//    compile('com.android.support:support-core-ui:' + support_version)
-//    compile('com.android.support:support-media-compat:' + support_version)
-//    compile('com.android.support:support-fragment:' + support_version)
-//    compile('com.android.support:cardview-v7:' + support_version)
-//    compile('com.android.support:appcompat-v7:' + support_version)
     compile('com.android.support:recyclerview-v7:' + LIB_SUPPORT_VERSION)
-//    compile('com.android.support:design:' + support_version)
 }
-
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'

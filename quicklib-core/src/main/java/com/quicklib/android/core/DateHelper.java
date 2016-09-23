@@ -1,4 +1,4 @@
-package com.quicklib.android.helper;
+package com.quicklib.android.core;
 
 
 import java.text.DateFormat;
@@ -17,7 +17,7 @@ public class DateHelper {
     }
 
     public static DateFormat getDefaultDateFormat(){
-        DateFormat dateFormat = SimpleDateFormat.getDateInstance();//new SimpleDateFormat(Locale.getDefault());
+        DateFormat dateFormat = SimpleDateFormat.getDateInstance();
         dateFormat.setTimeZone(getDefaultTimeZone());
         return dateFormat;
     }
