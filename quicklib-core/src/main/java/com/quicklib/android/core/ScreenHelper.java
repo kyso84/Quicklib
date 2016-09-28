@@ -6,7 +6,22 @@ import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
 
+
+/**
+ * This class provides useful features to screen characteristics
+ *
+ * @author Benoit Deschanel
+ * @since 16-09-26
+ * Copyright (C) 2016 Quicklib
+ */
 public class ScreenHelper {
+
+    /**
+     * This method returns a ScreenSize class
+     *
+     * @param context application's context
+     * @return ScreenSize object
+     */
     @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     public static ScreenSize getScreenSize(Context context) {
@@ -18,6 +33,8 @@ public class ScreenHelper {
         display.getSize(size);
         return new ScreenSize(density, size.x, size.y);
     }
+
+
 
     public static class ScreenSize {
         private float density = 0;

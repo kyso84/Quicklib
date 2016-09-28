@@ -25,13 +25,9 @@ import java.io.InputStreamReader;
  *
  * @author Benoit Deschanel
  * @since 15-04-30
- * Copyright (C) 2015 Quicklib
+ * Copyright (C) 2016 Quicklib
  */
 public class StringUtils {
-
-    public static final String EMPTY_STRING = "";
-
-
 
     public static String fromStream(InputStream is)  {
         StringBuilder out = new StringBuilder();
@@ -48,7 +44,6 @@ public class StringUtils {
                     try {
                         is.close();
                     } catch (IOException e) {
-                        return "";
                     }
                 }
             }

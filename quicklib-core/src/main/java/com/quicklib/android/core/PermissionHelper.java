@@ -4,11 +4,20 @@ package com.quicklib.android.core;
 import android.content.pm.PackageManager;
 
 /**
- * @author bdescha1
- * @since 16-06-17
- * Copyright (C) 2016 French Connection !!!
+ * This class helps to work with permissions
+ *
+ * @author Benoit Deschanel
+ * @since 16-09-26
+ * Copyright (C) 2016 Quicklib
  */
 public class PermissionHelper {
+
+    /**
+     * Check permissions callback's result
+     *
+     * @param grantResults list of permissions results
+     * @return returns if all resquested permissions are granted
+     */
     public static boolean checkPermissionsGranted(int[] grantResults) {
         if (grantResults != null) {
             for (int status : grantResults) {

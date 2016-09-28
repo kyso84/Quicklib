@@ -38,9 +38,9 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':quicklib-app')
-    compile('com.android.support:multidex:1.0.1')
+    compile project(':quicklib-core')
 }
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'

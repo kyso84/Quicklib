@@ -7,9 +7,9 @@ import android.view.animation.AnimationUtils;
 
 
 /**
- * @author bdescha1
- * @since 16-07-21
- * Copyright (C) 2016 French Connection !!!
+ * @author Benoit Deschanel
+ * @since 16-09-26
+ *
  */
 public class AnimationHelper {
 

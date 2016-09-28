@@ -7,23 +7,20 @@ import android.os.Build;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-
 /**
- * @author bdescha1
- * @since 16-07-29
- * Copyright (C) 2016 French Connection !!!
+ * This class allows to change app's font
+ *
+ * @author Benoit Deschanel
+ * @since 16-09-26
+ * Copyright (C) 2016 Quicklib
  */
 public class FontHelper {
 
     public static void setDefaultFont(Context context, String staticTypefaceFieldName, String fontAssetName) {
         final Typeface regular = Typeface.createFromAsset(context.getAssets(), fontAssetName);
-        replaceFont(staticTypefaceFieldName, regular);
-    }
-
-    protected static void replaceFont(String staticTypefaceFieldName,final Typeface newTypeface) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
             Map<String, Typeface> newMap = new HashMap<String, Typeface>();
-            newMap.put("sans-serif", newTypeface);
+            newMap.put("sans-serif", regular);
             try {
                 final Field staticField = Typeface.class.getDeclaredField("sSystemFontMap");
                 staticField.setAccessible(true);
@@ -37,7 +34,7 @@ public class FontHelper {
             try {
                 final Field staticField = Typeface.class.getDeclaredField(staticTypefaceFieldName);
                 staticField.setAccessible(true);
-                staticField.set(null, newTypeface);
+                staticField.set(null, regular);
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -45,5 +42,7 @@ public class FontHelper {
             }
         }
     }
+
+
 
 }

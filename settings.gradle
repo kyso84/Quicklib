@@ -1,1 +1,1 @@
-include ':quicklib-core', ':quicklib-calendar', ':quicklib-multidex', ':quicklib-app', ':quicklib-ratioview'
+include ':quicklib-core', ':quicklib-calendar', ':quicklib-multidex', ':quicklib-app', ':quicklib-ratioview', ':quicklib-security', ':quicklib-security'
