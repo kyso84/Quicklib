@@ -2,6 +2,8 @@ package com.quicklib.android.core;
 
 import android.content.pm.PackageManager;
 
+import com.quicklib.android.core.helper.PermissionHelper;
+
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

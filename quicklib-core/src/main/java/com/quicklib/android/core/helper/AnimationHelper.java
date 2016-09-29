@@ -1,9 +1,11 @@
-package com.quicklib.android.core;
+package com.quicklib.android.core.helper;
 
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import com.quicklib.android.core.R;
 
 
 /**

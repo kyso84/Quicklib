@@ -1,4 +1,4 @@
-package com.quicklib.android.core;
+package com.quicklib.android.core.helper;
 
 
 import java.text.DateFormat;

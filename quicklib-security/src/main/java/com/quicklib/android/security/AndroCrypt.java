@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 
+import com.quicklib.android.core.tool.Log;
+
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -193,7 +195,7 @@ public final class AndroCrypt {
 
     private void log(String text) {
         if (debug) {
-            Timber.d( text);
+            Log.d( text);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.quicklib.android.core;
 
+import com.quicklib.android.core.helper.JavaHelper;
+
 import org.junit.Before;
 import org.junit.Test;
 

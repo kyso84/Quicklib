@@ -1,4 +1,4 @@
-package com.quicklib.android.core;
+package com.quicklib.android.core.helper;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

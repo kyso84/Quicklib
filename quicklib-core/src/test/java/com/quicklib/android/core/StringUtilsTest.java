@@ -1,5 +1,7 @@
 package com.quicklib.android.core;
 
+import com.quicklib.android.core.helper.StringUtils;
+
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
