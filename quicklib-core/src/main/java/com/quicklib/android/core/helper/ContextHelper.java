@@ -88,7 +88,7 @@ public class ContextHelper {
         InputStream is = null;
         try {
             is = context.openFileInput(file.getAbsolutePath());
-            return StringUtils.fromStream(is);
+            return StringHelper.fromStream(is);
         } catch (IOException e) {
         } finally {
             if (is != null) {
@@ -106,7 +106,7 @@ public class ContextHelper {
         InputStream is = null;
         try {
             is = context.openFileInput(filePath);
-            return StringUtils.fromStream(is);
+            return StringHelper.fromStream(is);
         } catch (IOException e) {
         } finally {
             if (is != null) {
@@ -124,7 +124,7 @@ public class ContextHelper {
         InputStream is = null;
         try {
             is = context.getAssets().open(filePath);
-            return StringUtils.fromStream(is);
+            return StringHelper.fromStream(is);
         } catch (IOException e) {
         } finally {
             if (is != null) {

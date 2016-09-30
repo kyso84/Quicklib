@@ -27,7 +27,7 @@ import java.io.InputStreamReader;
  * @since 15-04-30
  * Copyright (C) 2016 Quicklib
  */
-public class StringUtils {
+public class StringHelper {
 
     public static String fromStream(InputStream is)  {
         StringBuilder out = new StringBuilder();
