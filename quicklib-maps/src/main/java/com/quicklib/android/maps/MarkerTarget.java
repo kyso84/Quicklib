@@ -1,4 +1,4 @@
-package com.kysoprod.gashistory.thirdparty.picasso;
+package com.quicklib.android.maps;;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 public class MarkerTarget implements Target {
-    final Marker marker;
+    private final Marker marker;
 
     public MarkerTarget(Marker marker) {
         this.marker = marker;

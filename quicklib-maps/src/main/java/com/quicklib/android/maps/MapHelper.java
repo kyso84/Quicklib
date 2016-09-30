@@ -50,13 +50,13 @@ public class MapHelper {
         return "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=" + lat + "," + lng + "&key=" + googleKey;
     }
 
-    public static BitmapDescriptor getBitmapDescriptor(Context context, @DrawableRes int id, @DimenRes int sizeId) {
-        Drawable drawable = ContextCompat.getDrawable(context, id);
+    public static BitmapDescriptor getBitmapDescriptor(Context context, @DrawableRes int drawableId, @DimenRes int sizeId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
         return getBitmapDescriptor(context, drawable, sizeId);
     }
 
-    public static BitmapDescriptor getBitmapDescriptor(Context context, @DrawableRes int id, @DimenRes int sizeId, @ColorRes int colorId) {
-        Drawable drawable = DrawableHelper.getTintedDrawable(context, id, colorId);
+    public static BitmapDescriptor getBitmapDescriptor(Context context, @DrawableRes int drawableId, @DimenRes int sizeId, @ColorRes int colorId) {
+        Drawable drawable = DrawableHelper.getTintedDrawable(context, drawableId, colorId);
         return getBitmapDescriptor(context, drawable, sizeId);
     }
 
@@ -102,6 +102,7 @@ public class MapHelper {
 
         return center.distanceTo(middleLeft);
     }
+
 
 
 }
