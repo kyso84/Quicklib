@@ -12,9 +12,11 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.VisibleRegion;
 import com.quicklib.android.core.helper.DrawableHelper;
 
 /**
@@ -82,33 +84,24 @@ public class MapHelper {
         }
     }
 
-//    public static void test(GoogleMap map, ){
-//
-//        final long duration = 400;
-//        final Handler handler = new Handler();
-//        final long start = SystemClock.uptimeMillis();
-//        Projection proj = map.getProjection();
-//
-//        Point startPoint = proj.toScreenLocation(marker.getPosition());
-//        final LatLng startLatLng = proj.fromScreenLocation(startPoint);
-//
-//        final Interpolator interpolator = new LinearInterpolator();
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                long elapsed = SystemClock.uptimeMillis() - start;
-//                float t = interpolator.getInterpolation((float) elapsed / duration);
-//                double lng = t * target.longitude + (1 - t) * startLatLng.longitude;
-//                double lat = t * target.latitude + (1 - t) * startLatLng.latitude;
-//                marker.setPosition(new LatLng(lat, lng));
-//                if (t < 1.0) {
-//                    // Post again 10ms later.
-//                    handler.postDelayed(this, 10);
-//                } else {
-//                    // animation ended
-//                }
-//            }
-//        });
-//    }
+
+    public static float getRadius(Projection projection) {
+        VisibleRegion vr = projection.getVisibleRegion();
+        double left = vr.latLngBounds.southwest.longitude;
+        double top = vr.latLngBounds.northeast.latitude;
+        double right = vr.latLngBounds.northeast.longitude;
+        double bottom = vr.latLngBounds.southwest.latitude;
+
+        Location center = new Location("center");
+        center.setLatitude(vr.latLngBounds.getCenter().latitude);
+        center.setLongitude(vr.latLngBounds.getCenter().longitude);
+
+        Location middleLeft = new Location("middleLeft");
+        middleLeft.setLatitude(center.getLatitude());
+        middleLeft.setLongitude(left);
+
+        return center.distanceTo(middleLeft);
+    }
+
 
 }
