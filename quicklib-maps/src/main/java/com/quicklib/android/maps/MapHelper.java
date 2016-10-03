@@ -29,12 +29,20 @@ public class MapHelper {
     private static final String KEY_MAP_BUNDLE = "mapBundle";
 
 
+    public static com.google.maps.model.LatLng getLatLong(double lat, double lng) {
+        return new com.google.maps.model.LatLng(lat, lng);
+    }
+
+    public static com.google.maps.model.LatLng getLatLong(com.google.android.gms.maps.model.LatLng latlng) {
+        return new com.google.maps.model.LatLng(latlng.latitude, latlng.longitude);
+    }
+
     public static com.google.android.gms.maps.model.LatLng getLatLng(double lat, double lng) {
         return new com.google.android.gms.maps.model.LatLng(lat, lng);
     }
 
-    public static com.google.android.gms.maps.model.LatLng getLatLng(Location location) {
-        return new com.google.android.gms.maps.model.LatLng(location.getLatitude(), location.getLongitude());
+    public static com.google.android.gms.maps.model.LatLng getLatLng(com.google.maps.model.LatLng latlong) {
+        return new com.google.android.gms.maps.model.LatLng(latlong.lat, latlong.lng);
     }
 
     public static String getStreetViewUrl(String googleKey, Location location) {
