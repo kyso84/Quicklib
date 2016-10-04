@@ -1,4 +1,4 @@
-package com.quicklib.android.maps;;
+package com.quicklib.android.maps;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;

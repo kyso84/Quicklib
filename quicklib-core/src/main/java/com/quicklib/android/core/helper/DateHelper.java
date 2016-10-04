@@ -23,7 +23,7 @@ public class DateHelper {
     }
 
     public static DateFormat getDefaultDateFormat(String pattern){
-        DateFormat dateFormat = new SimpleDateFormat(pattern);
+        DateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         dateFormat.setTimeZone(getDefaultTimeZone());
         return dateFormat;
     }

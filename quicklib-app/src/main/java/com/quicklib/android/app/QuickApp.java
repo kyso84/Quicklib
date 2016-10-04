@@ -26,7 +26,7 @@ import android.content.Context;
  * @since 15-04-30
  * Copyright (C) 2015 Quicklib
  */
-public class QuickApp extends Application{
+public abstract class QuickApp extends Application{
 
     private static QuickApp me;
 

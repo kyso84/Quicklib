@@ -3,8 +3,7 @@ package com.quicklib.android.multidex;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
-
-public class QuickAppMultidex extends MultiDexApplication {
+public abstract class QuickAppMultidex extends MultiDexApplication {
 
     private static QuickAppMultidex me;
 

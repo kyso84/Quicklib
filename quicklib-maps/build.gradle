@@ -36,17 +36,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        warning 'InvalidPackage'
+    }
 }
 
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':quicklib-core')
+    compile('com.android.support:support-annotations:' + libSupportVersion)
     compile('com.google.android.gms:play-services-maps:' + libPlayServicesVesion)
 
-    compile('com.google.maps:google-maps-services:0.1.+')
+    compile('com.google.maps:google-maps-services:0.1.15')
     // https://github.com/googlemaps/google-maps-services-java
-    compile('com.google.maps.android:android-maps-utils:0.4+')
+    compile('com.google.maps.android:android-maps-utils:0.4.4')
     //https://github.com/googlemaps/android-maps-utils
 }
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
