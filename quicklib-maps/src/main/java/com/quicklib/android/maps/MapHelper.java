@@ -55,7 +55,11 @@ public class MapHelper {
     }
 
     public static String getStreetViewUrl(String googleKey, double lat, double lng) {
-        return "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=" + lat + "," + lng + "&key=" + googleKey;
+        return getStreetViewUrl( googleKey, lat, lng, 600, 300);
+    }
+
+    public static String getStreetViewUrl(String googleKey, double lat, double lng, int width, int height) {
+        return "https://maps.googleapis.com/maps/api/streetview?size="+width+"x"+height+"&location=" + lat + "," + lng + "&key=" + googleKey;
     }
 
     public static BitmapDescriptor getBitmapDescriptor(Context context, @DrawableRes int drawableId, @DimenRes int sizeId) {
