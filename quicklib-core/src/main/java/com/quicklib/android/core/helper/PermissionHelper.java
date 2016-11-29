@@ -25,7 +25,7 @@ public class PermissionHelper {
         if (grantResults != null) {
             boolean result = true;
             for (int status : grantResults) {
-                result = result && (status != PackageManager.PERMISSION_GRANTED);
+                result = result && (status == PackageManager.PERMISSION_GRANTED);
             }
             return result;
         } else {

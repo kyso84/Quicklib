@@ -14,7 +14,7 @@ public class PermissionHelperTest {
     public void testCheckPermissionsGranted() throws Exception {
         int[] input = new int[]{PackageManager.PERMISSION_GRANTED, PackageManager.PERMISSION_GRANTED, PackageManager.PERMISSION_GRANTED, PackageManager.PERMISSION_GRANTED};
 
-        boolean result = PermissionHelper.checkPermissionsGranted(input);
+        boolean result = PermissionHelper.onRequestPermissionsResult(input);
 
         assertThat(result).isTrue();
     }
@@ -23,7 +23,7 @@ public class PermissionHelperTest {
     public void testCheckPermissionsGranted_IfOneDenied() throws Exception {
         int[] input = new int[]{PackageManager.PERMISSION_GRANTED, PackageManager.PERMISSION_DENIED, PackageManager.PERMISSION_GRANTED, PackageManager.PERMISSION_GRANTED};
 
-        boolean result = PermissionHelper.checkPermissionsGranted(input);
+        boolean result = PermissionHelper.onRequestPermissionsResult(input);
 
         assertThat(result).isFalse();
     }
