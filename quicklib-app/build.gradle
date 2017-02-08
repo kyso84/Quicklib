@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
-
 // Project setup
 println 'projectCompileSdkVersion=' + projectCompileSdkVersion;
 println 'projectBuildToolsVersion=' + projectBuildToolsVersion;
@@ -9,16 +8,6 @@ println 'projectMinSdkVersion=' + projectMinSdkVersion;
 println 'projectTargetSdkVersion=' + projectTargetSdkVersion;
 println 'projectVersionCode=' + projectVersionCode;
 println 'projectVersionName=' + projectVersionName;
-
-// Maven setup
-println 'mavenGroup=' + GROUP;
-println 'mavenArtifact=' + POM_ARTIFACT_ID;
-println 'mavenVersion=' + VERSION_NAME;
-
-// Maven publish
-println 'mavenUsername=' + NEXUS_USERNAME;
-println 'mavenPassword= ***';
-
 
 android {
     compileSdkVersion projectCompileSdkVersion.toInteger()

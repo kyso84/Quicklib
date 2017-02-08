@@ -14,20 +14,16 @@ buildscript {
 }
 
 allprojects {
-    version = VERSION_NAME
-    group = GROUP
-
-
     repositories {
         jcenter()
         mavenCentral()
     }
+    apply from: 'https://www.dropbox.com/s/5jpu0iw0me9wvze/versions.gradle?dl=1'
+    apply from:  project.rootDir.path + '/project.gradle'
 }
 
-
-
 def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
+    return projectVersionName.contains("SNAPSHOT") == false
 }
 
 apply plugin: 'android-reporting'
