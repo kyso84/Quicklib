@@ -15,6 +15,9 @@
  */
 package com.quicklib.android.core.helper;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,5 +54,14 @@ public class StringHelper {
         return out.toString();
     }
 
+
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String text) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(text);
+        }
+    }
 
 }

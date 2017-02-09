@@ -18,7 +18,7 @@ allprojects {
         jcenter()
         mavenCentral()
     }
-    apply from: 'https://www.dropbox.com/s/5jpu0iw0me9wvze/versions.gradle?dl=1'
+    apply from: 'https://www.dropbox.com/s/8imo0xci6n6wrd5/versions.gradle?dl=1'
     apply from:  project.rootDir.path + '/project.gradle'
 }
 

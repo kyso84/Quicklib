@@ -28,10 +28,15 @@ android {
     }
 }
 
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':quicklib-app')
+    compile project(':quicklib-calendar')
     compile project(':quicklib-core')
+    compile project(':quicklib-maps')
+    compile project(':quicklib-multidex')
+    compile project(':quicklib-ratioview')
     compile project(':quicklib-recyclerview')
+    compile project(':quicklib-security')
 }
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
