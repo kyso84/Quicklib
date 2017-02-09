@@ -37,11 +37,13 @@ dependencies {
     compile('com.android.support:support-annotations:' + libSupportVersion)
     compile('com.android.support:appcompat-v7:' + libSupportVersion)
 
-    compile('com.squareup.picasso:picasso:2.5.2')
+    compile('com.squareup.picasso:picasso:' + libPicassoVersion)
 
-    testCompile 'org.hamcrest:hamcrest-all:1.1'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-all:1.10.19'
-    testCompile 'org.assertj:assertj-core:1.7.1'
+    testCompile ('junit:junit:' + libJunitVersion)
+    testCompile ('org.assertj:assertj-core:' + libAssertJVersion)
+    testCompile ('org.mockito:mockito-all:' + libMockitoVersion)
+    testCompile ('org.powermock:powermock:' + libPowerMockVersion)
+    testCompile ('org.powermock:powermock-module-junit4:' + libPowerMockVersion)
+    testCompile ('org.powermock:powermock-api-mockito2:'  + libPowerMockVersion)
 }
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
