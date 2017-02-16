@@ -1,4 +1,19 @@
 ext{
     projectVersionCode="1"
     projectVersionName="1.0.0-SNAPSHOT"
+    projectGroup="com.quicklib"
+
+    // Publication
+    GROUP=projectGroup
+    VERSION_NAME=projectVersionName
+    POM_DESCRIPTION="Quicklib is a lightweight Android library that provides a bunch of utility classes used to simplify your dev"
+    POM_URL="https://github.com/kyso84/quicklib.git"
+    POM_SCM_URL="https://github.com/kyso84/quicklib.git"
+    POM_SCM_CONNECTION="scm:git@github.com:kyso84/quicklib.git"
+    POM_SCM_DEV_CONNECTION="scm:git@github.com:kyso84/quicklib.git"
+    POM_LICENCE_NAME="The Apache Software License, Version 2.0"
+    POM_LICENCE_URL="http://www.apache.org/licenses/LICENSE-2.0.txt"
+    POM_LICENCE_DIST="repo"
+    POM_DEVELOPER_ID=System.properties['user.name']
+    POM_DEVELOPER_NAME="QuickTeam"
 }

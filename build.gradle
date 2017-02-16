@@ -20,8 +20,8 @@ allprojects {
     }
     apply from: 'https://www.dropbox.com/s/8imo0xci6n6wrd5/versions.gradle?dl=1'
     apply from:  project.rootDir.path + '/project.gradle'
-    version = VERSION_NAME
-    group = GROUP
+    version = projectVersionName
+    group = projectGroup
 
 }
 
