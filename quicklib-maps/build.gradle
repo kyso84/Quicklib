@@ -36,7 +36,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':quicklib-core')
     compile('com.android.support:support-annotations:' + libSupportVersion)
-    compile('com.google.android.gms:play-services-maps:' + libPlayServicesVesion)
+    compile('com.google.android.gms:play-services-maps:' + libPlayServicesVersion)
 
     compile('com.google.maps:google-maps-services:0.1.15')
     // https://github.com/googlemaps/google-maps-services-java

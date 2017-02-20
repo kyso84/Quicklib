@@ -18,7 +18,7 @@ allprojects {
         jcenter()
         mavenCentral()
     }
-    apply from: 'https://www.dropbox.com/s/8imo0xci6n6wrd5/versions.gradle?dl=1'
+    apply from: 'http://ws.kysoprod.com/versions.gradle'
     apply from:  project.rootDir.path + '/project.gradle'
     version = projectVersionName
     group = projectGroup
