@@ -8,9 +8,11 @@ import android.widget.ListAdapter;
 import android.widget.SpinnerAdapter;
 
 /**
- * @author bdescha1
+ * This class overload Android's Application and provides useful features
+ *
+ * @author Benoit Deschanel
  * @since 16-11-30
- * Copyright (C) 2016 French Connection !!!
+ * Copyright (C) 2015 Quicklib
  */
 public abstract class RecyclerListAdapter<E, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> implements ListAdapter, SpinnerAdapter {
 

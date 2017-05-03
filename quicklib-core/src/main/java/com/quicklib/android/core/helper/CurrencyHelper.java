@@ -10,10 +10,22 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * This helper provides convenient methods related to money & currency
+ *
+ * @author Benoit Deschanel
+ * @package com.quicklib.android.core.helper
+ * @since 17 -05-02
+ */
 public class CurrencyHelper {
 
 
-    private static List<Currency> getCurrencyList() {
+    /**
+     * Gets system's currency list.
+     *
+     * @return the currency list
+     */
+    public static List<Currency> getCurrencyList() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             return new ArrayList<>(Currency.getAvailableCurrencies());
         } else {
@@ -32,16 +44,25 @@ public class CurrencyHelper {
         }
     }
 
-
-    public static String[] getCurrencyCodes() {
+    /**
+     * Gets the system's currency codes.
+     *
+     * @return the currency codes
+     */
+    public static List<String> getCurrencyCodes() {
         List<String> list = new ArrayList<>();
         for (Currency currency : getCurrencyList()) {
             list.add(currency.getCurrencyCode());
         }
-        return list.toArray(new String[list.size()]);
+        return list;
     }
 
-    public static String[] getCurrencyNames() {
+    /**
+     * Gets the system's currency names.
+     *
+     * @return the currency names
+     */
+    public static List<String> getCurrencyNames() {
         List<String> list = new ArrayList<>();
         for (Currency currency : getCurrencyList()) {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -50,7 +71,7 @@ public class CurrencyHelper {
                 list.add(currency.getSymbol(Locale.getDefault()) + " (" + currency.getCurrencyCode() + ")");
             }
         }
-        return list.toArray(new String[list.size()]);
+        return list;
     }
 
 

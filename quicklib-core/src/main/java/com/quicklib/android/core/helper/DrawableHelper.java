@@ -48,7 +48,7 @@ public class DrawableHelper {
             try {
                 DrawableCompat.setTintList(drawable.mutate(), ContextCompat.getColorStateList(context, colorId));
             } catch (Resources.NotFoundException e) {
-                DrawableCompat.setTint(drawable.mutate(), ContextHelper.getColor(context, colorId));
+                DrawableCompat.setTint(drawable.mutate(), ContextCompat.getColor(context, colorId));
             }
         }
         return drawable;
