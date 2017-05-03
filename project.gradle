@@ -1,6 +1,6 @@
 ext{
     projectVersionCode="1"
-    projectVersionName="1.0.0-SNAPSHOT"
+    projectVersionName="1.0"
     projectGroup="com.quicklib"
 
     // Publication

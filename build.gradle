@@ -22,13 +22,11 @@ allprojects {
     apply from:  project.rootDir.path + '/project.gradle'
     version = projectVersionName
     group = projectGroup
-
 }
 
 def isReleaseBuild() {
     return projectVersionName.contains("SNAPSHOT") == false
 }
 
-apply plugin: 'android-reporting'
 
 
