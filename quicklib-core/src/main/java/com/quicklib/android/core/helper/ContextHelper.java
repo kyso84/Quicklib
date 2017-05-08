@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.DimenRes;
+import android.support.annotation.ColorInt;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -33,7 +34,7 @@ public class ContextHelper {
     public static float getDimFloat(Context context, @DimenRes int dimId) {
         return context.getResources().getDimension(dimId);
     }
-
+    
     /**
      * Gets the amount of pixels of a dimension.
      *
@@ -41,8 +42,23 @@ public class ContextHelper {
      * @param dimenId   the dimension id
      * @return the number of pixels
      */
+    @ColorInt
     public static int getDimenPx(Context context, @DimenRes int dimenId) {
         return context.getResources().getDimensionPixelSize(dimenId);
+    }
+
+    /**
+     * Gets a color defined in the theme.
+     *
+     * @param context the app context
+     * @param attrRes   the attribute id (e.g. R.attr.colorAccent)
+     * @return the density independent dimension
+     */
+    @ColorInt
+    public static int getThemeColor(final Context context, @AttrRes int attrRes) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(attrRes, value, true);
+        return value.data;
     }
 
     /**
