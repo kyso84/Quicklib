@@ -24,6 +24,10 @@ allprojects {
     group = projectGroup
 }
 
+subprojects {
+    tasks.withType(Javadoc).all { enabled = false }
+}
+
 def isReleaseBuild() {
     return projectVersionName.contains("SNAPSHOT") == false
 }
