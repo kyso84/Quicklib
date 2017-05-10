@@ -44,7 +44,6 @@ public class ContextHelper {
      * @param dimenId   the dimension id
      * @return the number of pixels
      */
-    @ColorInt
     public static int getDimenPx(Context context, @DimenRes int dimenId) {
         return context.getResources().getDimensionPixelSize(dimenId);
     }
@@ -54,7 +53,7 @@ public class ContextHelper {
      *
      * @param context the app context
      * @param attrRes   the attribute id (e.g. R.attr.colorAccent)
-     * @return the density independent dimension
+     * @return A single color value in the form 0xAARRGGBB
      */
     @ColorInt
     public static int getThemeColor(final Context context, @AttrRes int attrRes) {
@@ -71,7 +70,6 @@ public class ContextHelper {
     public static void showKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-
     }
 
     /**
@@ -228,5 +226,4 @@ public class ContextHelper {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
 }
