@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.RecyclerView;
-import com.quicklib.android.core.common.DataEvent;
+import com.quicklib.android.core.common.DataSetEvent;
 
 /**
  * Created by benoit on 17-04-17.
@@ -26,6 +26,6 @@ public abstract class DataHolder<E extends Enum<E>, T> extends RecyclerView.View
         super(itemView);
     }
 
-    public abstract void onBind(DataEvent<E, T> dataEvent, T item, int position);
+    public abstract void onBind(DataSetEvent<E, T> dataSetEvent, T item, int position);
 
 }

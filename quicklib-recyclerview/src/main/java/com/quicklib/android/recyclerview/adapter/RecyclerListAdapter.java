@@ -14,7 +14,7 @@ import android.widget.SpinnerAdapter;
  * @since 16-11-30
  * Copyright (C) 2015 Quicklib
  */
-public abstract class RecyclerListAdapter<E, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> implements ListAdapter, SpinnerAdapter {
+public abstract class RecyclerListAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> implements ListAdapter, SpinnerAdapter {
 
     private static final int HOLDER_TAG = 777;
 
@@ -24,7 +24,7 @@ public abstract class RecyclerListAdapter<E, VH extends RecyclerView.ViewHolder>
     }
 
     @Override
-    public abstract E getItem(int position);
+    public abstract T getItem(int position);
 
     @Override
     public final View getView(int position, View convertView, ViewGroup parent) {
