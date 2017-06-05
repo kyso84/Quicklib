@@ -18,7 +18,7 @@ allprojects {
         jcenter()
         mavenCentral()
     }
-    apply from: 'http://ws.kysoprod.com/versions.gradle'
+    apply from: 'http://ws.kysoprod.com/versions2.gradle'
     apply from:  project.rootDir.path + '/project.gradle'
     version = projectVersionName
     group = projectGroup
@@ -27,10 +27,4 @@ allprojects {
 subprojects {
     tasks.withType(Javadoc).all { enabled = false }
 }
-
-def isReleaseBuild() {
-    return projectVersionName.contains("SNAPSHOT") == false
-}
-
-
 

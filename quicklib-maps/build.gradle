@@ -1,22 +1,24 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'maven'
 
 
 // Project setup
-println 'projectCompileSdkVersion=' + projectCompileSdkVersion;
-println 'projectBuildToolsVersion=' + projectBuildToolsVersion;
-println 'projectMinSdkVersion=' + projectMinSdkVersion;
-println 'projectTargetSdkVersion=' + projectTargetSdkVersion;
+println 'commonCompileSdkVersion=' + commonCompileSdkVersion;
+println 'commonBuildToolsVersion=' + commonBuildToolsVersion;
+println 'commonMinSdkVersion=' + commonMinSdkVersion;
+println 'commonTargetSdkVersion=' + commonTargetSdkVersion;
 println 'projectVersionCode=' + projectVersionCode;
 println 'projectVersionName=' + projectVersionName;
 
 android {
-    compileSdkVersion projectCompileSdkVersion.toInteger()
-    buildToolsVersion projectBuildToolsVersion
+    compileSdkVersion commonCompileSdkVersion.toInteger()
+    buildToolsVersion commonBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion projectMinSdkVersion.toInteger()
-        targetSdkVersion projectTargetSdkVersion.toInteger()
+        minSdkVersion commonMinSdkVersion.toInteger()
+        targetSdkVersion commonTargetSdkVersion.toInteger()
         versionCode projectVersionCode.toInteger()
         versionName projectVersionName
     }
@@ -35,12 +37,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':quicklib-core')
-    compile('com.android.support:support-annotations:' + libSupportVersion)
-    compile('com.google.android.gms:play-services-maps:' + libPlayServicesVersion)
+    compile('com.android.support:support-annotations:' + supportVersion)
+    compile('com.google.android.gms:play-services-maps:' + playServicesVersion)
 
     compile('com.google.maps:google-maps-services:0.1.20')
     // https://github.com/googlemaps/google-maps-services-java
     compile('com.google.maps.android:android-maps-utils:0.5')
     //https://github.com/googlemaps/android-maps-utils
 }
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+apply from: '../publish.gradle'

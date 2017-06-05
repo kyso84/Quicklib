@@ -1,21 +1,23 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'maven'
 
 // Project setup
-println 'projectCompileSdkVersion=' + projectCompileSdkVersion;
-println 'projectBuildToolsVersion=' + projectBuildToolsVersion;
-println 'projectMinSdkVersion=' + projectMinSdkVersion;
-println 'projectTargetSdkVersion=' + projectTargetSdkVersion;
+println 'commonCompileSdkVersion=' + commonCompileSdkVersion;
+println 'commonBuildToolsVersion=' + commonBuildToolsVersion;
+println 'commonMinSdkVersion=' + commonMinSdkVersion;
+println 'commonTargetSdkVersion=' + commonTargetSdkVersion;
 println 'projectVersionCode=' + projectVersionCode;
 println 'projectVersionName=' + projectVersionName;
 
 android {
-    compileSdkVersion projectCompileSdkVersion.toInteger()
-    buildToolsVersion projectBuildToolsVersion
+    compileSdkVersion commonCompileSdkVersion.toInteger()
+    buildToolsVersion commonBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion projectMinSdkVersion.toInteger()
-        targetSdkVersion projectTargetSdkVersion.toInteger()
+        minSdkVersion commonMinSdkVersion.toInteger()
+        targetSdkVersion commonTargetSdkVersion.toInteger()
         versionCode projectVersionCode.toInteger()
         versionName projectVersionName
     }
@@ -32,18 +34,18 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile('com.android.support:support-compat:' + libSupportVersion)
-    compile('com.android.support:support-core-utils:' + libSupportVersion)
-    compile('com.android.support:support-annotations:' + libSupportVersion)
-    compile('com.android.support:appcompat-v7:' + libSupportVersion)
+    compile('com.android.support:support-compat:' + supportVersion)
+    compile('com.android.support:support-core-utils:' + supportVersion)
+    compile('com.android.support:support-annotations:' + supportVersion)
+    compile('com.android.support:appcompat-v7:' + supportVersion)
 
-    compile('com.squareup.picasso:picasso:' + libPicassoVersion)
+    compile('com.squareup.picasso:picasso:' + picassoVersion)
 
-    testCompile ('junit:junit:' + libJunitVersion)
-    testCompile ('org.assertj:assertj-core:' + libAssertJVersion)
-    testCompile ('org.mockito:mockito-all:' + libMockitoVersion)
-    testCompile ('org.powermock:powermock:' + libPowerMockVersion)
-    testCompile ('org.powermock:powermock-module-junit4:' + libPowerMockVersion)
-    testCompile ('org.powermock:powermock-api-mockito2:'  + libPowerMockVersion)
+    testCompile ('junit:junit:' + junitVersion)
+    testCompile ('org.assertj:assertj-core:' + assertJVersion)
+    testCompile ('org.mockito:mockito-all:' + mockitoVersion)
+    testCompile ('org.powermock:powermock:' + powerMockVersion)
+    testCompile ('org.powermock:powermock-module-junit4:' + powerMockVersion)
+    testCompile ('org.powermock:powermock-api-mockito2:'  + powerMockVersion)
 }
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+apply from: '../publish.gradle'
