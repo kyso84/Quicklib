@@ -17,8 +17,9 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        maven { url "https://maven.google.com" }
     }
-    apply from: 'http://ws.kysoprod.com/versions2.gradle'
+    apply from: 'http://ws.kysoprod.com/versions.gradle'
     apply from:  project.rootDir.path + '/project.gradle'
     version = projectVersionName
     group = projectGroup

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ErrorScreenView">
+        <attr name="image" format="reference"/>
+        <attr name="imageSize" format="dimension"/>
+        <attr name="title" format="string"/>
+        <attr name="message" format="string"/>
+        <attr name="footer" format="string"/>
+        <attr name="button" format="string"/>
+    </declare-styleable>
+</resources>

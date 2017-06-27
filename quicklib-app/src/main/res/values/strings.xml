@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="try_again">Try again</string>
+    <string name="error_unknown">Oops&#8230; something went wrong :(</string>
+    <string name="error_no_network">Unable to reach internet, check your connectivity</string>
+    <string name="error_empty_list">Sorry, there is no result.</string>
+    <string name="error_we_apologize">We apologize for the inconvenience</string>
+</resources>
