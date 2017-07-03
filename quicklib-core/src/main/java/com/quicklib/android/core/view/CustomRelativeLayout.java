@@ -74,7 +74,6 @@ public abstract class CustomRelativeLayout extends RelativeLayout {
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
         if (state instanceof CustomViewState) {
             CustomViewState viewState = (CustomViewState) state;
             super.onRestoreInstanceState(viewState.getSuperState());
