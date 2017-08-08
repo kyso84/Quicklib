@@ -74,7 +74,6 @@ public abstract class CustomFrameLayout extends FrameLayout {
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
         if (state instanceof CustomViewState) {
             CustomViewState viewState = (CustomViewState) state;
             super.onRestoreInstanceState(viewState.getSuperState());
