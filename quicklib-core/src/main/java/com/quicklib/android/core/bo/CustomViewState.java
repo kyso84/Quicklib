@@ -5,7 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class CustomViewState implements Parcelable{
-    private final String SUPER_STATE = "superState";
+    private final String SUPER_STATE = "state_";
     private final Bundle bundle;
 
     /**
@@ -15,7 +15,7 @@ public class CustomViewState implements Parcelable{
      */
     public CustomViewState(Parcelable superState) {
         bundle = new Bundle();
-        bundle.putParcelable(SUPER_STATE, superState);
+        bundle.putParcelable(SUPER_STATE + hashCode(), superState);
     }
 
     /**
@@ -33,7 +33,7 @@ public class CustomViewState implements Parcelable{
      * @return the parcelable
      */
     public Parcelable getSuperState() {
-        return bundle.getParcelable(SUPER_STATE);
+        return bundle.getParcelable(SUPER_STATE + hashCode());
     }
 
     /**
@@ -43,7 +43,7 @@ public class CustomViewState implements Parcelable{
      */
     public Bundle getInstanceState() {
         Bundle extra = (Bundle) bundle.clone();
-        extra.remove(SUPER_STATE);
+        extra.remove(SUPER_STATE + hashCode());
         return extra;
     }
 
