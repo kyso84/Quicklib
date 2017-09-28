@@ -43,7 +43,6 @@ public abstract class MonthlyCalendarAdapter<CVH extends RecyclerView.ViewHolder
 
         dateList.add(workCalendar.getTime());
         workCalendar.add(Calendar.DATE, 1);
-        //noinspection ResourceType
         while( isSameMonth(mainCalendar, workCalendar) || workCalendar.getFirstDayOfWeek() != workCalendar.get(Calendar.DAY_OF_WEEK) ){
             dateList.add(workCalendar.getTime());
             workCalendar.add(Calendar.DATE, 1);

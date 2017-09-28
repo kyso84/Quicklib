@@ -32,8 +32,11 @@ android {
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':quicklib-core')
-    compile project(':quicklib-recyclerview')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':quicklib-core')
+    implementation project(':quicklib-app')
+    implementation project(':quicklib-recyclerview')
+
+    implementation('com.android.support:recyclerview-v7:' + supportVersion)
 }
 apply from: '../publish.gradle'

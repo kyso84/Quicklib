@@ -33,19 +33,19 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile('com.android.support:support-compat:' + supportVersion)
-    compile('com.android.support:support-core-utils:' + supportVersion)
-    compile('com.android.support:support-annotations:' + supportVersion)
-    compile('com.android.support:appcompat-v7:' + supportVersion)
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation('com.android.support:support-compat:' + supportVersion)
+    implementation('com.android.support:support-core-utils:' + supportVersion)
+    implementation('com.android.support:support-annotations:' + supportVersion)
+    implementation('com.android.support:appcompat-v7:' + supportVersion)
 
-    compile('com.squareup.picasso:picasso:' + picassoVersion)
+    implementation('com.squareup.picasso:picasso:' + picassoVersion)
 
-    testCompile ('junit:junit:' + junitVersion)
-    testCompile ('org.assertj:assertj-core:' + assertJVersion)
-    testCompile ('org.mockito:mockito-all:' + mockitoVersion)
-    testCompile ('org.powermock:powermock:' + powerMockVersion)
-    testCompile ('org.powermock:powermock-module-junit4:' + powerMockVersion)
-    testCompile ('org.powermock:powermock-api-mockito2:'  + powerMockVersion)
+    testImplementation ('junit:junit:' + junitVersion)
+    testImplementation ('org.assertj:assertj-core:' + assertJVersion)
+    testImplementation ('org.mockito:mockito-all:' + mockitoVersion)
+    testImplementation ('org.powermock:powermock:' + powerMockVersion)
+    testImplementation ('org.powermock:powermock-module-junit4:' + powerMockVersion)
+    testImplementation ('org.powermock:powermock-api-mockito2:'  + powerMockVersion)
 }
 apply from: '../publish.gradle'

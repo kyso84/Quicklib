@@ -24,7 +24,7 @@ public class CustomViewState implements Parcelable{
      * @param in the in
      */
     protected CustomViewState(Parcel in) {
-        bundle = in.readBundle();
+        bundle = in.readBundle(Bundle.class.getClassLoader());
     }
 
     /**

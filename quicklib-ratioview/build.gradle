@@ -31,8 +31,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':quicklib-core')
-    compile('com.android.support:cardview-v7:' + supportVersion)
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':quicklib-core')
+    implementation('com.android.support:design:' + supportVersion)
+    implementation('com.android.support:cardview-v7:' + supportVersion)
 }
 apply from: '../publish.gradle'

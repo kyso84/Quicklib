@@ -108,7 +108,12 @@ public final class AndroCrypt {
                 ivParameterSpec = new IvParameterSpec(iv);
             } else if (password != null && password.length() > 0) {
                 // Create a new instance
-                SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+                SecureRandom random = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    random = SecureRandom.getInstanceStrong();
+                }else{
+                    random = new SecureRandom();
+                }
                 secretKey = generateSecret(random, password, algo);
                 ivParameterSpec = generateIV(random, cipher);
             } else {

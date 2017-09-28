@@ -31,14 +31,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':quicklib-app')
-    compile project(':quicklib-calendar')
-    compile project(':quicklib-core')
-    compile project(':quicklib-maps')
-    compile project(':quicklib-multidex')
-    compile project(':quicklib-ratioview')
-    compile project(':quicklib-recyclerview')
-    compile project(':quicklib-security')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':quicklib-app')
+    implementation project(':quicklib-calendar')
+    implementation project(':quicklib-core')
+    implementation project(':quicklib-maps')
+    implementation project(':quicklib-multidex')
+    implementation project(':quicklib-ratioview')
+    implementation project(':quicklib-recyclerview')
+    implementation project(':quicklib-security')
 }
 apply from: '../publish.gradle'

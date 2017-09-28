@@ -22,7 +22,7 @@ Grab via Maven:
 ```
 or Gradle:
 ```groovy
-compile 'com.quicklib:quicklib-all:1.0.0'
+implementation 'com.quicklib:quicklib-all:1.0.0'
 ```
 
 

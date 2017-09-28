@@ -31,7 +31,11 @@ public class JavaHelper {
     }
 
     public static void delayAction(long delay, Runnable runnable) {
-        new Handler().postDelayed(runnable, delay);
+        if( delay > 0 ){
+            new Handler().postDelayed(runnable, delay);
+        }else{
+            runnable.run();
+        }
     }
 
 

@@ -31,8 +31,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':quicklib-core')
-    compile('com.google.code.gson:gson:' + gsonVersion)
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':quicklib-core')
+    implementation('com.google.code.gson:gson:' + gsonVersion)
+    implementation('com.android.support:support-annotations:' + supportVersion)
 }
 apply from: '../publish.gradle'

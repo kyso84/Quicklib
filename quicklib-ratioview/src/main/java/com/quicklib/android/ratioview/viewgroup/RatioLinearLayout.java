@@ -1,10 +1,8 @@
 package com.quicklib.android.ratioview.viewgroup;
 
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -31,12 +29,6 @@ public class RatioLinearLayout extends LinearLayout  implements RatioView {
 
     public RatioLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        onCreate(context, attrs);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public RatioLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         onCreate(context, attrs);
     }
 
