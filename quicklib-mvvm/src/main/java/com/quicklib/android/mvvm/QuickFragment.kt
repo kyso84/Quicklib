@@ -15,12 +15,12 @@ abstract class QuickFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment()
     @Throws
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bindingCreated: VDB? = DataBindingUtil.getBinding(view) ?: DataBindingUtil.bind(view)
+        val bindingCreated: VDB? = DataBindingUtil.findBinding(view) ?: DataBindingUtil.bind(view)
         bindingCreated?.let {
             binding = it
             binding.setLifecycleOwner(this)
         } ?: run {
-            throw IllegalStateException("Unable to find the binding of your view. Did you inflated a view with a \"databindable\" layout ?")
+            throw IllegalStateException("Unable to find the binding of your view. You should use DataBindingUtil.inflate()?.root instead of regular inflate()")
         }
     }
 
