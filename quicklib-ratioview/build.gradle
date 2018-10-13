@@ -1,16 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'maven'
-
-
-// Project setup
-println 'commonCompileSdkVersion=' + commonCompileSdkVersion;
-println 'commonBuildToolsVersion=' + commonBuildToolsVersion;
-println 'commonMinSdkVersion=' + commonMinSdkVersion;
-println 'commonTargetSdkVersion=' + commonTargetSdkVersion;
-println 'projectVersionCode=' + projectVersionCode;
-println 'projectVersionName=' + projectVersionName;
 
 android {
     compileSdkVersion commonCompileSdkVersion.toInteger()
@@ -31,9 +26,14 @@ android {
 }
 
 dependencies {
+    implementation ( "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':quicklib-core')
-    implementation('com.android.support:design:' + supportVersion)
-    implementation('com.android.support:cardview-v7:' + supportVersion)
+
+    implementation ('androidx.appcompat:appcompat:' + androidxAppCompatVersion)
+    implementation ('androidx.cardview:cardview:' + androidxCardViewVersion)
 }
 apply from: '../publish.gradle'
+repositories {
+    mavenCentral()
+}

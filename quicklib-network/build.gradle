@@ -1,0 +1,60 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'maven'
+apply from: '../publish.gradle'
+apply from: '../ktlint.gradle'
+
+android {
+    compileSdkVersion commonCompileSdkVersion.toInteger()
+    buildToolsVersion commonBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion commonMinSdkVersion.toInteger()
+        targetSdkVersion commonTargetSdkVersion.toInteger()
+        versionCode projectVersionCode.toInteger()
+        versionName projectVersionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    implementation ( "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':quicklib-core')
+    implementation project(':quicklib-app')
+    implementation project(':quicklib-recyclerview')
+
+    // Ktlint
+    ktlint ('com.github.shyiko:ktlint:' + ktlintVersion)
+
+    // Ktx
+    implementation ('androidx.core:core-ktx:' + androidxCoreKtxVersion)
+
+    // SQUARE
+    implementation('com.squareup.okio:okio:' + okIoVersion)
+    implementation('com.squareup.okhttp3:okhttp:' + okHttpVersion)
+    implementation('com.squareup.okhttp3:logging-interceptor:' + okHttpVersion)
+    implementation('com.squareup.retrofit2:retrofit:' + retrofitVersion)
+    implementation('com.squareup.retrofit2:converter-gson:' + retrofitVersion)
+    implementation('com.squareup.retrofit2:adapter-rxjava2:' + retrofitVersion)
+
+    // Arch
+    implementation ('androidx.lifecycle:lifecycle-extensions:' + androidxLifeCycleVersion)
+    implementation ('androidx.lifecycle:lifecycle-viewmodel-ktx:' + androidxLifeCycleVersion)
+    implementation ('androidx.lifecycle:lifecycle-livedata:' + androidxLifeCycleVersion)
+    kapt ('androidx.lifecycle:lifecycle-compiler:' + androidxLifeCycleVersion)
+}
+repositories {
+    mavenCentral()
+}
