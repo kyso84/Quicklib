@@ -26,8 +26,11 @@ android {
         }
     }
 }
-
-
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
 dependencies {
     implementation ( "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -40,6 +43,10 @@ dependencies {
 
     // Ktx
     implementation ('androidx.core:core-ktx:' + androidxCoreKtxVersion)
+
+    // COROUTINES
+    implementation ('org.jetbrains.kotlinx:kotlinx-coroutines-core:' + coroutinesAndroidVersion)
+    implementation ('org.jetbrains.kotlinx:kotlinx-coroutines-android:' + coroutinesAndroidVersion)
 
     // SQUARE
     implementation('com.squareup.okio:okio:' + okIoVersion)

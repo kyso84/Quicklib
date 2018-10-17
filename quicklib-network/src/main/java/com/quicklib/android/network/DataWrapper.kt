@@ -5,5 +5,6 @@ class DataWrapper<T>(
     val status: DataStatus = DataStatus.UNKNOWN,
     val error: Throwable? = null,
     val isLocal: Boolean = false,
-    val isOutDated: Boolean = false
+    val isOutDated: Boolean = false,
+    val warning: Throwable? = null
 )
