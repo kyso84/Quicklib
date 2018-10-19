@@ -31,6 +31,13 @@ abstract class QuickActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatA
         onViewReady(savedInstanceState)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (viewModel is QuickViewModel) {
+            (viewModel as QuickViewModel).onFinish()
+        }
+    }
+
     abstract fun getViewModelInstance(): VM
     abstract fun onViewReady(savedInstanceState: Bundle?)
 }

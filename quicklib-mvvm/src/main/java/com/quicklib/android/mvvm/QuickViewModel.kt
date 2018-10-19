@@ -31,4 +31,6 @@ abstract class QuickViewModel : ViewModel(), Observable {
             callbacks.notifyCallbacks(this, fieldId, null)
         }
     }
+
+    fun onFinish() {}
 }

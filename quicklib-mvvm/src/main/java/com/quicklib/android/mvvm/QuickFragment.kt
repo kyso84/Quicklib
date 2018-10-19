@@ -30,6 +30,13 @@ abstract class QuickFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment()
         onViewReady(savedInstanceState)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (viewModel is QuickViewModel) {
+            (viewModel as QuickViewModel).onFinish()
+        }
+    }
+
     abstract fun getViewModelInstance(): VM
     abstract fun onViewReady(savedInstanceState: Bundle?)
 }
