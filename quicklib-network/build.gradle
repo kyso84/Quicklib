@@ -32,35 +32,35 @@ kotlin {
     }
 }
 dependencies {
-    implementation ( "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':quicklib-core')
     implementation project(':quicklib-app')
     implementation project(':quicklib-recyclerview')
 
     // Ktlint
-    ktlint ('com.github.shyiko:ktlint:' + ktlintVersion)
+    ktlint("com.github.shyiko:ktlint:$ktlintVersion")
 
     // Ktx
-    implementation ('androidx.core:core-ktx:' + androidxCoreKtxVersion)
+    implementation("androidx.core:core-ktx:$androidxCoreKtxVersion")
 
     // COROUTINES
-    implementation ('org.jetbrains.kotlinx:kotlinx-coroutines-core:' + coroutinesAndroidVersion)
-    implementation ('org.jetbrains.kotlinx:kotlinx-coroutines-android:' + coroutinesAndroidVersion)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesAndroidVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroidVersion")
 
     // SQUARE
-    implementation('com.squareup.okio:okio:' + okIoVersion)
-    implementation('com.squareup.okhttp3:okhttp:' + okHttpVersion)
-    implementation('com.squareup.okhttp3:logging-interceptor:' + okHttpVersion)
-    implementation('com.squareup.retrofit2:retrofit:' + retrofitVersion)
-    implementation('com.squareup.retrofit2:converter-gson:' + retrofitVersion)
-    implementation('com.squareup.retrofit2:adapter-rxjava2:' + retrofitVersion)
+    implementation("com.squareup.okio:okio:$okIoVersion")
+    implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
 
     // Arch
-    implementation ('androidx.lifecycle:lifecycle-extensions:' + androidxLifeCycleVersion)
-    implementation ('androidx.lifecycle:lifecycle-viewmodel-ktx:' + androidxLifeCycleVersion)
-    implementation ('androidx.lifecycle:lifecycle-livedata:' + androidxLifeCycleVersion)
-    kapt ('androidx.lifecycle:lifecycle-compiler:' + androidxLifeCycleVersion)
+    implementation("androidx.lifecycle:lifecycle-extensions:$androidxLifeCycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$androidxLifeCycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata:$androidxLifeCycleVersion")
+    kapt("androidx.lifecycle:lifecycle-compiler:$androidxLifeCycleVersion")
 }
 repositories {
     mavenCentral()

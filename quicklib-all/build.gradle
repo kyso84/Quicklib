@@ -26,7 +26,7 @@ android {
 }
 
 dependencies {
-    implementation ( "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':quicklib-app')
     implementation project(':quicklib-calendar')
