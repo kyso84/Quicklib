@@ -12,11 +12,11 @@ abstract class DataStrategy<T>() {
     protected val fgContext: CoroutineContext = Dispatchers.Main
 
     val liveData = MutableLiveData<DataWrapper<T>>()
-    val job: Job = start()
+    private val job: Job = start()
 
     fun cancel() {
         job.cancel()
     }
 
-    abstract fun start(): Job
+    protected abstract fun start(): Job
 }
