@@ -1,60 +1,57 @@
 package com.quicklib.android.network.strategy
 
+import androidx.annotation.UiThread
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.MutableLiveData
-import com.quicklib.android.network.DataCallback
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
+import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.withContext
 
-abstract class LocalDataFirstStrategy<T>() {
+abstract class LocalDataFirstStrategy<T>() : DataStrategy<T>() {
 
-    val liveData = MutableLiveData<DataWrapper<T>>()
+    override fun start(): Job = askLocal()
 
-    init {
-        askLocal()
+    private fun askLocal() = GlobalScope.launch(fgContext, CoroutineStart.LAZY) {
+        try {
+            liveData.value = DataWrapper(status = DataStatus.LOADING, localData = true)
+            val task = withContext(bgContext) { readData() }
+            val data = task.await()
+            if (isValid(data)) {
+                liveData.value = DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true)
+            } else {
+                askRemote(IllegalArgumentException("local data is not valid"))
+            }
+        } catch (error: Throwable) {
+            askRemote(error)
+        }
     }
 
-    private fun askLocal() {
-        liveData.postValue(DataWrapper(status = DataStatus.LOADING, isLocal = true, isOutDated = false))
-        readData(object : DataCallback<T> {
-            override fun onSuccess(localData: T?) {
-                if (isOutdated(localData)) {
-                    askRemote(localData = localData)
-                } else {
-                    liveData.postValue(DataWrapper(value = localData, status = DataStatus.SUCCESS, isLocal = true, isOutDated = false))
-                }
-            }
+    private fun askRemote(warning: Throwable) = GlobalScope.launch(fgContext, CoroutineStart.LAZY) {
+        try {
+            liveData.value = DataWrapper(status = DataStatus.FETCHING, localData = false, warning = warning)
+            val task = withContext(bgContext) { fetchData() }
+            val data = task.await()
+            liveData.value = DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false, warning = warning)
 
-            override fun onError(error: Throwable?) {
-                askRemote(localData = null, warning = error)
-            }
-        })
+            withContext(bgContext) { writeData(data) }
+        } catch (error: Throwable) {
+            liveData.value = DataWrapper(error = error, status = DataStatus.ERROR, localData = false, warning = warning)
+        }
     }
 
-    private fun askRemote(localData: T?, warning: Throwable? = null) {
-        liveData.postValue(DataWrapper(status = DataStatus.FETCHING, isLocal = false, isOutDated = true, warning = warning))
-        fetchData(object : DataCallback<T> {
-            override fun onSuccess(data: T?) {
-                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, isLocal = false, isOutDated = true, warning = warning))
-                data?.let {
-                    writeData(it)
-                }
-            }
-
-            override fun onError(error: Throwable?) {
-                liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, isLocal = false, isOutDated = true, warning = warning))
-            }
-        })
-    }
-
-    abstract fun isOutdated(data: T?): Boolean
+    @UiThread
+    abstract suspend fun isValid(data: T): Boolean
 
     @WorkerThread
-    abstract fun fetchData(callback: DataCallback<T>)
+    abstract suspend fun fetchData(): Deferred<T>
 
     @WorkerThread
-    abstract fun readData(callback: DataCallback<T>)
+    abstract suspend fun readData(): Deferred<T>
 
     @WorkerThread
-    abstract fun writeData(data: T)
+    abstract suspend fun writeData(data: T)
 }

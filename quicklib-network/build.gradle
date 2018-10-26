@@ -57,7 +57,6 @@ dependencies {
     implementation('com.squareup.okhttp3:logging-interceptor:' + okHttpVersion)
     implementation('com.squareup.retrofit2:retrofit:' + retrofitVersion)
     implementation('com.squareup.retrofit2:converter-gson:' + retrofitVersion)
-    implementation('com.squareup.retrofit2:adapter-rxjava2:' + retrofitVersion)
 
     // Arch
     implementation ('androidx.lifecycle:lifecycle-extensions:' + androidxLifeCycleVersion)
