@@ -25,6 +25,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 kotlin {
     experimental {
@@ -61,6 +64,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$androidxLifeCycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata:$androidxLifeCycleVersion")
     kapt("androidx.lifecycle:lifecycle-compiler:$androidxLifeCycleVersion")
+
+    // Unit Tests
+    testImplementation ("junit:junit:$junitVersion")
+    testImplementation("org.mockito:mockito-all:$mockitoVersion")
 }
 repositories {
     mavenCentral()
