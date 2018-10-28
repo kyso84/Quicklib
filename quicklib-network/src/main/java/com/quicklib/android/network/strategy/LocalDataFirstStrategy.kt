@@ -15,7 +15,7 @@ abstract class LocalDataFirstStrategy<T>() : DataStrategy<T>() {
 
     override fun start(): Job = askLocal()
 
-    private fun askLocal() = GlobalScope.launch(fgContext, CoroutineStart.LAZY) {
+    private fun askLocal() = GlobalScope.launch(fgContext, CoroutineStart.DEFAULT) {
         try {
             liveData.value = DataWrapper(status = DataStatus.LOADING, localData = true)
             val task = withContext(bgContext) { readData() }
@@ -30,7 +30,7 @@ abstract class LocalDataFirstStrategy<T>() : DataStrategy<T>() {
         }
     }
 
-    private fun askRemote(warning: Throwable) = GlobalScope.launch(fgContext, CoroutineStart.LAZY) {
+    private fun askRemote(warning: Throwable) = GlobalScope.launch(fgContext, CoroutineStart.DEFAULT) {
         try {
             liveData.value = DataWrapper(status = DataStatus.FETCHING, localData = false, warning = warning)
             val task = withContext(bgContext) { fetchData() }

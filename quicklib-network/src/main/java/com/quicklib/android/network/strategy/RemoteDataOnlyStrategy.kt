@@ -14,7 +14,7 @@ abstract class RemoteDataOnlyStrategy<T> : DataStrategy<T>() {
 
     override fun start(): Job = askRemote()
 
-    private fun askRemote() = GlobalScope.launch(fgContext, CoroutineStart.LAZY) {
+    private fun askRemote() = GlobalScope.launch(fgContext, CoroutineStart.DEFAULT) {
         try {
             liveData.value = DataWrapper(status = DataStatus.FETCHING, localData = false)
             val task = withContext(bgContext) { fetchData() }

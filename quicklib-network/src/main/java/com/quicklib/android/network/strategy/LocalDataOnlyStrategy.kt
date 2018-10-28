@@ -15,7 +15,7 @@ abstract class LocalDataOnlyStrategy<T> : DataStrategy<T>() {
     override fun start(): Job = askLocal()
 
     // https://proandroiddev.com/android-coroutine-recipes-33467a4302e9
-    private fun askLocal() = GlobalScope.launch(fgContext, CoroutineStart.LAZY) {
+    private fun askLocal() = GlobalScope.launch(fgContext, CoroutineStart.DEFAULT) {
         try {
             liveData.value = DataWrapper(status = DataStatus.LOADING, localData = true)
             val task = withContext(bgContext) { readData() }
