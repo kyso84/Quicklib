@@ -5,20 +5,22 @@ import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.experimental.CoroutineStart
 import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
+import kotlin.coroutines.experimental.CoroutineContext
 
-abstract class LocalDataOnlyStrategy<T> : DataStrategy<T>() {
+abstract class LocalDataOnlyStrategy<T>(val mainContext: CoroutineContext = Dispatchers.Main, val localContext: CoroutineContext = Dispatchers.IO) : DataStrategy<T>() {
 
     override fun start(): Job = askLocal()
 
     // https://proandroiddev.com/android-coroutine-recipes-33467a4302e9
-    private fun askLocal() = GlobalScope.launch(fgContext, CoroutineStart.DEFAULT) {
+    private fun askLocal() = GlobalScope.launch(mainContext, CoroutineStart.DEFAULT) {
         try {
             liveData.value = DataWrapper(status = DataStatus.LOADING, localData = true)
-            val task = withContext(bgContext) { readData() }
+            val task = withContext(localContext) { readData() }
             val data = task.await()
             liveData.value = DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true)
         } catch (error: Throwable) {

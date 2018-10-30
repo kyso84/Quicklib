@@ -2,14 +2,9 @@ package com.quicklib.android.network.strategy
 
 import androidx.lifecycle.MutableLiveData
 import com.quicklib.android.network.DataWrapper
-import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.Job
-import kotlin.coroutines.experimental.CoroutineContext
 
-abstract class DataStrategy<T>() {
-
-    protected val bgContext: CoroutineContext = Dispatchers.IO
-    protected val fgContext: CoroutineContext = Dispatchers.Main
+abstract class DataStrategy<T> {
 
     val liveData = MutableLiveData<DataWrapper<T>>()
     private val job: Job = start()
