@@ -1,4 +1,4 @@
-package com.quicklib.android.mvvm
+package com.quicklib.android.mvvm.viewmodel
 
 import android.app.Application
 import androidx.databinding.Observable

@@ -1,4 +1,4 @@
-package com.quicklib.android.mvvm
+package com.quicklib.android.mvvm.view
 
 import android.os.Bundle
 import android.view.View
@@ -6,8 +6,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import com.quicklib.android.mvvm.QuickView
+import com.quicklib.android.mvvm.viewmodel.QuickViewModel
 
-abstract class QuickFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment() {
+abstract class QuickFragment<VDB : ViewDataBinding, VM : ViewModel> : Fragment(), QuickView<VDB, VM> {
 
     lateinit var binding: VDB
     lateinit var viewModel: VM
@@ -19,6 +21,7 @@ abstract class QuickFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment()
         bindingCreated?.let {
             binding = it
             binding.setLifecycleOwner(this)
+            onBindingReady(binding)
         } ?: run {
             throw IllegalStateException("Unable to find the binding of your view. You should use DataBindingUtil.inflate()?.root instead of regular inflate()")
         }
@@ -37,6 +40,6 @@ abstract class QuickFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment()
         }
     }
 
-    abstract fun getViewModelInstance(): VM
-    abstract fun onViewReady(savedInstanceState: Bundle?)
+    override fun onBindingReady(binding: VDB) {}
+    override fun onViewReady(savedInstanceState: Bundle?) {}
 }
