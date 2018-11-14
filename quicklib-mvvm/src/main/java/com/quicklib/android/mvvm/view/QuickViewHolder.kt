@@ -18,12 +18,10 @@ abstract class QuickViewHolder<T, VDB : ViewDataBinding, VM : ViewModel>(protect
 
     protected val viewModel = getViewModelInstance()
 
-
     init {
         onBindingReady(binding)
         onViewReady(null)
     }
-
 
     override fun onBindingReady(binding: VDB) {}
     override fun onViewReady(savedInstanceState: Bundle?) {}

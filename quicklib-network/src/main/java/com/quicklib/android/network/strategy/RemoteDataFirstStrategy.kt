@@ -4,28 +4,26 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
-import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
-import kotlin.coroutines.experimental.CoroutineContext
 
-abstract class RemoteDataFirstStrategy<T>(val mainContext: CoroutineContext = Dispatchers.Main, val localContext: CoroutineContext = Dispatchers.IO, val remoteContext: CoroutineContext = Dispatchers.IO) : DataStrategy<T>() {
+abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Main), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope) {
 
     override fun start(): Job = askRemote()
 
-    private fun askRemote() = GlobalScope.launch(mainContext, CoroutineStart.DEFAULT) {
+    private fun askRemote() = mainScope.launch {
         if (isRemoteAvailable()) {
             try {
                 liveData.value = DataWrapper(status = DataStatus.FETCHING, localData = false)
-                val task = withContext(remoteContext) { fetchData() }
+                val task = withContext(remoteScope.coroutineContext) { fetchData() }
                 val data = task.await()
                 liveData.value = DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false)
 
-                withContext(localContext) { writeData(data) }
+                withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
                 askLocal(error)
             }
@@ -34,11 +32,11 @@ abstract class RemoteDataFirstStrategy<T>(val mainContext: CoroutineContext = Di
         }
     }
 
-    private fun askLocal(warning: Throwable) = GlobalScope.launch(mainContext, CoroutineStart.DEFAULT) {
+    private fun askLocal(warning: Throwable) = mainScope.launch {
         if (isLocalAvailable()) {
             try {
                 liveData.value = DataWrapper(status = DataStatus.LOADING, localData = true, warning = warning)
-                val task = withContext(localContext) { readData() }
+                val task = withContext(localScope.coroutineContext) { readData() }
                 val data = task.await()
                 liveData.value = DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true, warning = warning)
             } catch (error: Throwable) {
