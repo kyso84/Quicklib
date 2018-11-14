@@ -1,5 +1,6 @@
 package com.quicklib.android.network.strategy
 
+import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
@@ -17,15 +18,22 @@ abstract class RemoteDataOnlyStrategy<T>(val mainContext: CoroutineContext = Dis
     override fun start(): Job = askRemote()
 
     private fun askRemote() = GlobalScope.launch(mainContext, CoroutineStart.DEFAULT) {
-        try {
-            liveData.value = DataWrapper(status = DataStatus.FETCHING, localData = false)
-            val task = withContext(remoteContext) { fetchData() }
-            val data = task.await()
-            liveData.value = DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false)
-        } catch (error: Throwable) {
-            liveData.value = DataWrapper(error = error, status = DataStatus.ERROR, localData = false)
+        if (isRemoteAvailable()) {
+            try {
+                liveData.value = DataWrapper(status = DataStatus.FETCHING, localData = false)
+                val task = withContext(remoteContext) { fetchData() }
+                val data = task.await()
+                liveData.value = DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false)
+            } catch (error: Throwable) {
+                liveData.value = DataWrapper(error = error, status = DataStatus.ERROR, localData = false)
+            }
+        } else {
+            liveData.value = DataWrapper(error = IllegalStateException("Remote data is not available"), status = DataStatus.ERROR, localData = false)
         }
     }
+
+    @MainThread
+    open fun isRemoteAvailable(): Boolean = true
 
     @WorkerThread
     abstract suspend fun fetchData(): Deferred<T>
