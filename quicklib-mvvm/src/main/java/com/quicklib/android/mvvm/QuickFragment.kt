@@ -18,7 +18,8 @@ abstract class QuickFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment()
         val bindingCreated: VDB? = DataBindingUtil.findBinding(view) ?: DataBindingUtil.bind(view)
         bindingCreated?.let {
             binding = it
-            binding.setLifecycleOwner(this)
+            it.setLifecycleOwner(this)
+            onBindingReady(it)
         } ?: run {
             throw IllegalStateException("Unable to find the binding of your view. You should use DataBindingUtil.inflate()?.root instead of regular inflate()")
         }
@@ -37,6 +38,8 @@ abstract class QuickFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment()
         }
     }
 
+    fun onBindingReady(binding: VDB) {}
+    fun onViewReady(savedInstanceState: Bundle?) {}
+
     abstract fun getViewModelInstance(): VM
-    abstract fun onViewReady(savedInstanceState: Bundle?)
 }

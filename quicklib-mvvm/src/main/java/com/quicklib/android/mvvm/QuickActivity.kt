@@ -21,7 +21,8 @@ abstract class QuickActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatA
             val bindingCreated: VDB? = DataBindingUtil.findBinding(it) ?: DataBindingUtil.bind(it)
             bindingCreated?.let {
                 binding = it
-                binding.setLifecycleOwner(this)
+                it.setLifecycleOwner(this)
+                onBindingReady(it)
             } ?: run {
                 throw IllegalStateException("Unable to find the binding of your root view. You should use DataBindingUtil.setContentView() instead of regular setContentView()")
             }
@@ -38,6 +39,8 @@ abstract class QuickActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatA
         }
     }
 
+    fun onBindingReady(binding: VDB) {}
+    fun onViewReady(savedInstanceState: Bundle?) {}
+
     abstract fun getViewModelInstance(): VM
-    abstract fun onViewReady(savedInstanceState: Bundle?)
 }

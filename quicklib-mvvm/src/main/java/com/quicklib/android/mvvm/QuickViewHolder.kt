@@ -16,6 +16,11 @@ abstract class QuickViewHolder<T, VM : ViewModel, VDB : ViewDataBinding>(protect
 
     protected val viewModel = getViewModelInstance()
 
+    init {
+        onBindingReady(binding)
+    }
+
+    fun onBindingReady(binding: VDB) {}
     protected abstract fun getViewModelInstance(): VM
     protected abstract fun bind(data: T, position: Int)
 }
