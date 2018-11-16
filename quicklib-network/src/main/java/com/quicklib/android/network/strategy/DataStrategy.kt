@@ -2,11 +2,7 @@ package com.quicklib.android.network.strategy
 
 import androidx.lifecycle.MutableLiveData
 import com.quicklib.android.network.DataWrapper
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.cancel
-import kotlinx.coroutines.experimental.isActive
+import kotlinx.coroutines.*
 
 abstract class DataStrategy<T>(val mainScope: CoroutineScope = CoroutineScope(Dispatchers.Main), val localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), val remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) {
 
