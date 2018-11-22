@@ -2,11 +2,12 @@ package com.quicklib.android.network.strategy
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class LocalDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope) {
+abstract class LocalDataAwareStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope) {
 
     override fun start(): Job = askLocal()
 
@@ -15,9 +16,13 @@ abstract class LocalDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineSco
         if (isLocalAvailable()) {
             try {
                 liveData.postValue(DataWrapper(status = DataStatus.LOADING, localData = true))
-                val task = withContext(localScope.coroutineContext) { readData() }
-                val data = task.await()
-                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true))
+                val task: Deferred<LiveData<T>> = withContext(localScope.coroutineContext) { readData() }
+                val data: LiveData<T> = task.await()
+                CoroutineScope(Dispatchers.Main).launch {
+                    liveData.addSource(data) { value ->
+                        liveData.postValue(DataWrapper(value = value, status = DataStatus.SUCCESS, localData = true))
+                    }
+                }
             } catch (error: Throwable) {
                 liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true))
             }
@@ -30,5 +35,5 @@ abstract class LocalDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineSco
     open fun isLocalAvailable(): Boolean = true
 
     @WorkerThread
-    abstract suspend fun readData(): Deferred<T>
+    abstract suspend fun readData(): Deferred<LiveData<T>>
 }

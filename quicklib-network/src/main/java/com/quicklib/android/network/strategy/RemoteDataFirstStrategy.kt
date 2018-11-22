@@ -4,24 +4,19 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
-abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Main), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope) {
+abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope) {
 
     override fun start(): Job = askRemote()
 
     private fun askRemote() = mainScope.launch {
         if (isRemoteAvailable()) {
             try {
-                liveData.value = DataWrapper(status = DataStatus.FETCHING, localData = false)
+                liveData.postValue(DataWrapper(status = DataStatus.FETCHING, localData = false))
                 val task = withContext(remoteScope.coroutineContext) { fetchData() }
                 val data = task.await()
-                liveData.value = DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false)
+                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false))
 
                 withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
@@ -38,12 +33,12 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
                 liveData.value = DataWrapper(status = DataStatus.LOADING, localData = true, warning = warning)
                 val task = withContext(localScope.coroutineContext) { readData() }
                 val data = task.await()
-                liveData.value = DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true, warning = warning)
+                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true, warning = warning))
             } catch (error: Throwable) {
-                liveData.value = DataWrapper(error = error, status = DataStatus.ERROR, localData = true, warning = warning)
+                liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true, warning = warning))
             }
         } else {
-            liveData.value = DataWrapper(error = IllegalStateException("Local data is not available"), status = DataStatus.ERROR, localData = true, warning = warning)
+            liveData.postValue(DataWrapper(error = IllegalStateException("Local data is not available"), status = DataStatus.INVALID, localData = true, warning = warning))
         }
     }
 

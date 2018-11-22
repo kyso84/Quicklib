@@ -1,12 +1,12 @@
 package com.quicklib.android.network.strategy
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
 abstract class DataStrategy<T>(val mainScope: CoroutineScope = CoroutineScope(Dispatchers.Main), val localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), val remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) {
 
-    val liveData = MutableLiveData<DataWrapper<T>>()
+    val liveData = MediatorLiveData<DataWrapper<T>>()
     private val job = start()
 
     fun cancel() {

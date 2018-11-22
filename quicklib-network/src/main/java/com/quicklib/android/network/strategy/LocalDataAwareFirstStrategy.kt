@@ -2,11 +2,12 @@ package com.quicklib.android.network.strategy
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope) {
+abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope) {
 
     override fun start(): Job = askLocal()
 
@@ -14,13 +15,15 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
         if (isLocalAvailable()) {
             try {
                 liveData.postValue(DataWrapper(status = DataStatus.LOADING, localData = true))
-                val task = withContext(localScope.coroutineContext) { readData() }
-                val data = task.await()
-                if (isValid(data)) {
-                    liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true))
-                } else {
-                    askRemote(value = data, warning = IllegalArgumentException("local value is not valid"))
+                val task: Deferred<LiveData<T>> = withContext(localScope.coroutineContext) { readData() }
+                val data: LiveData<T> = task.await()
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    liveData.addSource(data) { value ->
+                        liveData.postValue(DataWrapper(value = value, status = DataStatus.SUCCESS, localData = true))
+                    }
                 }
+                askRemote()
             } catch (error: Throwable) {
                 askRemote(warning = error)
             }
@@ -29,20 +32,18 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
         }
     }
 
-    private fun askRemote(warning: Throwable, value: T? = null) = mainScope.launch {
+    private fun askRemote(warning: Throwable? = null) = mainScope.launch {
         if (isRemoteAvailable()) {
             try {
                 liveData.postValue(DataWrapper(status = DataStatus.FETCHING, localData = false, warning = warning))
                 val task = withContext(remoteScope.coroutineContext) { fetchData() }
                 val data = task.await()
-                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false, warning = warning))
-
                 withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
                 liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = false, warning = warning))
             }
         } else {
-            liveData.postValue(DataWrapper(value = value, error = IllegalStateException("Remote value is not available"), status = DataStatus.INVALID, localData = false, warning = warning))
+            liveData.postValue(DataWrapper(error = IllegalStateException("Remote value is not available"), status = DataStatus.INVALID, localData = false, warning = warning))
         }
     }
 
@@ -59,7 +60,7 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
     abstract suspend fun fetchData(): Deferred<T>
 
     @WorkerThread
-    abstract suspend fun readData(): Deferred<T>
+    abstract suspend fun readData(): Deferred<LiveData<T>>
 
     @WorkerThread
     abstract suspend fun writeData(data: T)

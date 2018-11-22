@@ -5,5 +5,6 @@ enum class DataStatus {
     FETCHING,
     SUCCESS,
     ERROR,
+    INVALID,
     UNKNOWN
 }
