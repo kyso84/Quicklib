@@ -24,5 +24,5 @@ abstract class QuickViewHolder<T, VDB : ViewDataBinding, VM : ViewModel>(protect
     override fun onBindingReady(binding: VDB) {}
     override fun onViewReady(savedInstanceState: Bundle?) {}
 
-    protected abstract fun bind(data: T, position: Int)
+    abstract fun bind(data: T, position: Int)
 }
