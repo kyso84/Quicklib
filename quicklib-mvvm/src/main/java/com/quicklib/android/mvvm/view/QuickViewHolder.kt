@@ -13,7 +13,7 @@ abstract class QuickViewHolder<T, VDB : ViewDataBinding, VM : ViewModel>(protect
     constructor(appCompatActivity: AppCompatActivity, binding: VDB) : this(appCompatActivity as LifecycleOwner, binding)
     constructor(fragment: Fragment, binding: VDB) : this(fragment as LifecycleOwner, binding)
 
-    protected val viewModel : VM
+    protected val viewModel: VM
 
     init {
         onBindingReady(binding)

@@ -14,13 +14,13 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
     private fun askLocal() = mainScope.launch {
         if (isLocalAvailable()) {
             try {
-                liveData.postValue(DataWrapper(status = DataStatus.LOADING, localData = true))
+                liveData.postValue(DataWrapper<T>(status = DataStatus.LOADING, localData = true))
                 val task: Deferred<LiveData<T>> = withContext(localScope.coroutineContext) { readData() }
                 val data: LiveData<T> = task.await()
 
                 CoroutineScope(Dispatchers.Main).launch {
                     liveData.addSource(data) { value ->
-                        liveData.postValue(DataWrapper(value = value, status = DataStatus.SUCCESS, localData = true))
+                        liveData.postValue(DataWrapper<T>(value = value, status = DataStatus.SUCCESS, localData = true))
                     }
                 }
                 askRemote()
@@ -35,15 +35,15 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
     private fun askRemote(warning: Throwable? = null) = mainScope.launch {
         if (isRemoteAvailable()) {
             try {
-                liveData.postValue(DataWrapper(status = DataStatus.FETCHING, localData = false, warning = warning))
+                liveData.postValue(DataWrapper<T>(status = DataStatus.FETCHING, localData = false, warning = warning))
                 val task = withContext(remoteScope.coroutineContext) { fetchData() }
                 val data = task.await()
                 withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
-                liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = false, warning = warning))
+                liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = false, warning = warning))
             }
         } else {
-            liveData.postValue(DataWrapper(error = IllegalStateException("Remote value is not available"), status = DataStatus.INVALID, localData = false, warning = warning))
+            liveData.postValue(DataWrapper<T>(error = IllegalStateException("Remote value is not available"), status = DataStatus.INVALID, localData = false, warning = warning))
         }
     }
 

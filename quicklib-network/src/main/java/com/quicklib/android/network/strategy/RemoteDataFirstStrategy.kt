@@ -13,7 +13,7 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
     private fun askRemote() = mainScope.launch {
         if (isRemoteAvailable()) {
             try {
-                liveData.postValue(DataWrapper(status = DataStatus.FETCHING, localData = false))
+                liveData.postValue(DataWrapper<T>(status = DataStatus.FETCHING, localData = false))
                 val task = withContext(remoteScope.coroutineContext) { fetchData() }
                 val data = task.await()
                 liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false))
@@ -35,10 +35,10 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
                 val data = task.await()
                 liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true, warning = warning))
             } catch (error: Throwable) {
-                liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true, warning = warning))
+                liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = true, warning = warning))
             }
         } else {
-            liveData.postValue(DataWrapper(error = IllegalStateException("Local data is not available"), status = DataStatus.INVALID, localData = true, warning = warning))
+            liveData.postValue(DataWrapper<T>(error = IllegalStateException("Local data is not available"), status = DataStatus.INVALID, localData = true, warning = warning))
         }
     }
 

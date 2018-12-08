@@ -14,7 +14,7 @@ abstract class WriteLocalDataStrategy<T>(val value: T, mainScope: CoroutineScope
             val data = task.await()
             liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true))
         } catch (error: Throwable) {
-            liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true))
+            liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = true))
         }
     }
 

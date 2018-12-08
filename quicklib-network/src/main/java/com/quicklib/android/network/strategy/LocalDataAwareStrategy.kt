@@ -15,16 +15,16 @@ abstract class LocalDataAwareStrategy<T>(mainScope: CoroutineScope = CoroutineSc
     private fun askLocal() = mainScope.launch {
         if (isLocalAvailable()) {
             try {
-                liveData.postValue(DataWrapper(status = DataStatus.LOADING, localData = true))
+                liveData.postValue(DataWrapper<T>(status = DataStatus.LOADING, localData = true))
                 val task: Deferred<LiveData<T>> = withContext(localScope.coroutineContext) { readData() }
                 val data: LiveData<T> = task.await()
                 CoroutineScope(Dispatchers.Main).launch {
                     liveData.addSource(data) { value ->
-                        liveData.postValue(DataWrapper(value = value, status = DataStatus.SUCCESS, localData = true))
+                        liveData.postValue(DataWrapper<T>(value = value, status = DataStatus.SUCCESS, localData = true))
                     }
                 }
             } catch (error: Throwable) {
-                liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true))
+                liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = true))
             }
         } else {
             liveData.value = DataWrapper(error = IllegalStateException("Local value is not available"), status = DataStatus.ERROR, localData = true)

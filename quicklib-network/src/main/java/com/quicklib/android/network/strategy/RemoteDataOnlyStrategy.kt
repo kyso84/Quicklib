@@ -13,15 +13,15 @@ abstract class RemoteDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineSc
     private fun askRemote() = mainScope.launch {
         if (isRemoteAvailable()) {
             try {
-                liveData.value = DataWrapper(status = DataStatus.FETCHING, localData = false)
+                liveData.postValue(DataWrapper<T>(status = DataStatus.FETCHING, localData = false))
                 val task = withContext(remoteScope.coroutineContext) { fetchData() }
                 val data = task.await()
                 liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false))
             } catch (error: Throwable) {
-                liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = false))
+                liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = false))
             }
         } else {
-            liveData.postValue(DataWrapper(error = IllegalStateException("Remote data is not available"), status = DataStatus.ERROR, localData = false))
+            liveData.postValue(DataWrapper<T>(error = IllegalStateException("Remote data is not available"), status = DataStatus.ERROR, localData = false))
         }
     }
 
