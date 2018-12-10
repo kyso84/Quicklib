@@ -7,7 +7,7 @@ import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class LocalDataAwareStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope) {
+abstract class LocalDataAwareStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, debug = debug) {
 
     override fun start(): Job = askLocal()
 
@@ -24,6 +24,9 @@ abstract class LocalDataAwareStrategy<T>(mainScope: CoroutineScope = CoroutineSc
                     }
                 }
             } catch (error: Throwable) {
+                if (debug) {
+                    error.printStackTrace()
+                }
                 liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = true))
             }
         } else {

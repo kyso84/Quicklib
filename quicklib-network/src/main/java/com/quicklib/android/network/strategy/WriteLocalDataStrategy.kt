@@ -4,7 +4,7 @@ import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class WriteLocalDataStrategy<T>(val value: T, mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope) {
+abstract class WriteLocalDataStrategy<T>(val value: T, mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, debug = debug) {
 
     override fun start() = writeLocal()
 
@@ -14,6 +14,9 @@ abstract class WriteLocalDataStrategy<T>(val value: T, mainScope: CoroutineScope
             val data = task.await()
             liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true))
         } catch (error: Throwable) {
+            if (debug) {
+                error.printStackTrace()
+            }
             liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = true))
         }
     }

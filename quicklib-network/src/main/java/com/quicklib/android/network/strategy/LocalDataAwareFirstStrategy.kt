@@ -7,7 +7,7 @@ import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope) {
+abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, debug = debug) {
 
     override fun start(): Job = askLocal()
 
@@ -25,6 +25,9 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
                 }
                 askRemote()
             } catch (error: Throwable) {
+                if (debug) {
+                    error.printStackTrace()
+                }
                 askRemote(warning = error)
             }
         } else {
@@ -40,6 +43,9 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
                 val data = task.await()
                 withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
+                if (debug) {
+                    error.printStackTrace()
+                }
                 liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = false, warning = warning))
             }
         } else {

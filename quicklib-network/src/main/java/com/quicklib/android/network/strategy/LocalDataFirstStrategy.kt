@@ -6,7 +6,7 @@ import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope) {
+abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, debug = debug) {
 
     override fun start(): Job = askLocal()
 
@@ -22,6 +22,9 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
                     askRemote(value = data, warning = IllegalArgumentException("local value is not valid"))
                 }
             } catch (error: Throwable) {
+                if (debug) {
+                    error.printStackTrace()
+                }
                 askRemote(warning = error)
             }
         } else {
@@ -39,6 +42,9 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
 
                 withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
+                if (debug) {
+                    error.printStackTrace()
+                }
                 liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = false, warning = warning))
             }
         } else {

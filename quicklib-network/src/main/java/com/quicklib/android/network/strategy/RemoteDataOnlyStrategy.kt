@@ -6,7 +6,7 @@ import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class RemoteDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO)) : DataStrategy<T>(mainScope = mainScope, remoteScope = remoteScope) {
+abstract class RemoteDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, remoteScope = remoteScope, debug = debug) {
 
     override fun start(): Job = askRemote()
 
@@ -18,6 +18,9 @@ abstract class RemoteDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineSc
                 val data = task.await()
                 liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false))
             } catch (error: Throwable) {
+                if (debug) {
+                    error.printStackTrace()
+                }
                 liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = false))
             }
         } else {
