@@ -32,6 +32,7 @@ dependencies {
     implementation project(':quicklib-core')
     implementation("com.google.code.gson:gson:$gsonVersion")
     implementation("androidx.annotation:annotation:$androidxAnnotationVersion")
+    implementation("androidx.appcompat:appcompat:$androidxAppCompatVersion")
 }
 apply from: '../publish.gradle'
 repositories {

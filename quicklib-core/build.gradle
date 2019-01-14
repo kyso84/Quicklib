@@ -37,12 +37,11 @@ dependencies {
 
     implementation("com.squareup.picasso:picasso:$picassoVersion")
 
-    testImplementation("junit:junit:$junitVersion")
+    // Unit Tests
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
     testImplementation("org.assertj:assertj-core:$assertJVersion")
-    testImplementation("org.mockito:mockito-all:$mockitoVersion")
-    testImplementation("org.powermock:powermock:$powerMockVersion")
-    testImplementation("org.powermock:powermock-module-junit4:$powerMockVersion")
-    testImplementation("org.powermock:powermock-api-mockito2:$powerMockVersion")
+    testImplementation("org.mockito:mockito-core:$mockitoVersion")
 }
 apply from: '../publish.gradle'
 repositories {
