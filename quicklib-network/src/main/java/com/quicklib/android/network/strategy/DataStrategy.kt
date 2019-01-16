@@ -5,9 +5,8 @@ import androidx.lifecycle.MediatorLiveData
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class DataStrategy<T>(val mainScope: CoroutineScope = CoroutineScope(Dispatchers.Main), val localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), val remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), var debug: Boolean = false) {
+abstract class DataStrategy<T>(val mainScope: CoroutineScope = CoroutineScope(Dispatchers.Main), val localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), val remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), protected val liveData:MediatorLiveData<DataWrapper<T>> = MediatorLiveData(), var debug: Boolean = false) {
 
-    protected val liveData = MediatorLiveData<DataWrapper<T>>()
     private val job = start()
 
     fun cancel() {

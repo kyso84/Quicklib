@@ -2,29 +2,30 @@ package com.quicklib.android.network.strategy
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.MediatorLiveData
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class RemoteDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, remoteScope = remoteScope, debug = debug) {
+abstract class RemoteDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData(), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, remoteScope = remoteScope, liveData = liveData, debug = debug) {
 
     override fun start(): Job = askRemote()
 
     private fun askRemote() = mainScope.launch {
         if (isRemoteAvailable()) {
             try {
-                liveData.postValue(DataWrapper<T>(status = DataStatus.FETCHING, localData = false))
+                liveData.postValue(DataWrapper(status = DataStatus.FETCHING, localData = false, strategy = this@RemoteDataOnlyStrategy::class))
                 val task = withContext(remoteScope.coroutineContext) { fetchData() }
                 val data = task.await()
-                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false))
+                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false, strategy = this@RemoteDataOnlyStrategy::class))
             } catch (error: Throwable) {
                 if (debug) {
                     error.printStackTrace()
                 }
-                liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = false))
+                liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = false, strategy = this@RemoteDataOnlyStrategy::class))
             }
         } else {
-            liveData.postValue(DataWrapper<T>(error = IllegalStateException("Remote data is not available"), status = DataStatus.ERROR, localData = false))
+            liveData.postValue(DataWrapper(error = IllegalStateException("Remote data is not available"), status = DataStatus.ERROR, localData = false, strategy = this@RemoteDataOnlyStrategy::class))
         }
     }
 

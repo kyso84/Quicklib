@@ -36,6 +36,7 @@ kotlin {
 }
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation ("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':quicklib-core')
     implementation project(':quicklib-app')
@@ -66,10 +67,13 @@ dependencies {
     kapt("androidx.lifecycle:lifecycle-compiler:$androidxLifeCycleVersion")
 
     // Unit Tests
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-    testImplementation("org.assertj:assertj-core:$assertJVersion")
-    testImplementation("org.mockito:mockito-core:$mockitoVersion")
+    testImplementation ("androidx.arch.core:core-testing:$androidxLifeCycleVersion")
+    testImplementation ("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testImplementation ("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+    testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testImplementation ("org.mockito:mockito-core:$mockitoVersion")
+    testImplementation ("org.mockito:mockito-junit-jupiter:$mockitoVersion")
+    testImplementation ("org.mockito:mockito-inline:$mockitoVersion")
 }
 repositories {
     mavenCentral()

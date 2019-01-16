@@ -2,21 +2,22 @@ package com.quicklib.android.network.strategy
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.MediatorLiveData
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.*
 
-abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, debug = debug) {
+abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData(), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, liveData = liveData, debug = debug) {
 
     override fun start(): Job = askRemote()
 
     private fun askRemote() = mainScope.launch {
         if (isRemoteAvailable()) {
             try {
-                liveData.postValue(DataWrapper<T>(status = DataStatus.FETCHING, localData = false))
+                liveData.postValue(DataWrapper(status = DataStatus.FETCHING, localData = false, strategy = this@RemoteDataFirstStrategy::class))
                 val task = withContext(remoteScope.coroutineContext) { fetchData() }
                 val data = task.await()
-                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false))
+                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false, strategy = this@RemoteDataFirstStrategy::class))
 
                 withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
@@ -33,18 +34,18 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
     private fun askLocal(warning: Throwable) = mainScope.launch {
         if (isLocalAvailable()) {
             try {
-                liveData.value = DataWrapper(status = DataStatus.LOADING, localData = true, warning = warning)
+                liveData.postValue(DataWrapper(status = DataStatus.LOADING, localData = true, warning = warning, strategy = this@RemoteDataFirstStrategy::class))
                 val task = withContext(localScope.coroutineContext) { readData() }
                 val data = task.await()
-                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true, warning = warning))
+                liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true, warning = warning, strategy = this@RemoteDataFirstStrategy::class))
             } catch (error: Throwable) {
                 if (debug) {
                     error.printStackTrace()
                 }
-                liveData.postValue(DataWrapper<T>(error = error, status = DataStatus.ERROR, localData = true, warning = warning))
+                liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true, warning = warning, strategy = this@RemoteDataFirstStrategy::class))
             }
         } else {
-            liveData.postValue(DataWrapper<T>(error = IllegalStateException("Local data is not available"), status = DataStatus.INVALID, localData = true, warning = warning))
+            liveData.postValue(DataWrapper(error = IllegalStateException("Local data is not available"), status = DataStatus.INVALID, localData = true, warning = warning, strategy = this@RemoteDataFirstStrategy::class))
         }
     }
 
