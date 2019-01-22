@@ -3,7 +3,11 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.MediatorLiveData
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class WriteTwiceDataStrategy<T>(val value: T, mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.Unconfined), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData(), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, liveData = liveData, debug = debug) {
 
@@ -23,7 +27,6 @@ abstract class WriteTwiceDataStrategy<T>(val value: T, mainScope: CoroutineScope
             liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true, strategy = this@WriteTwiceDataStrategy::class))
         }
     }
-
 
     @WorkerThread
     abstract suspend fun writeDataLocal(data: T): Deferred<T>

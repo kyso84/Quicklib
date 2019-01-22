@@ -2,8 +2,9 @@ package com.quicklib.android.core;
 
 import com.quicklib.android.core.helper.JavaHelper;
 
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class JavaHelperTest {
     final Map<Integer, String> map1 = new HashMap<>();
     final Map<Integer, String> map2 = new HashMap<>();
 
-    @Before
+    @BeforeAll
     public void setUp() throws Exception {
 
     }

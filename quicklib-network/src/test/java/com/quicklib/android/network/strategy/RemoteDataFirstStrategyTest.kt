@@ -2,7 +2,6 @@ package com.quicklib.android.network.strategy
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.MediatorLiveData
 import com.quicklib.android.network.DataStatus
@@ -14,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import org.junit.Rule
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentCaptor
@@ -22,7 +20,6 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Captor
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
 import java.lang.StringBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,7 +27,6 @@ import org.junit.rules.TestRule
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 import kotlin.reflect.full.isSubclassOf
-
 
 @ExtendWith(MockitoExtension::class)
 class RemoteDataFirstStrategyTest {
@@ -96,7 +92,6 @@ class RemoteDataFirstStrategyTest {
             }
         }
 
-
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 2
         Mockito.verify(liveData, Mockito.times(accessCount)).postValue(resultCaptor.capture())
@@ -143,7 +138,6 @@ class RemoteDataFirstStrategyTest {
             }
         }
 
-
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 3
         Mockito.verify(liveData, Mockito.times(accessCount)).postValue(resultCaptor.capture())
@@ -177,7 +171,6 @@ class RemoteDataFirstStrategyTest {
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
 
-
     @Test
     fun `test start() - with network error and no storage - returns error`() {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
@@ -198,7 +191,6 @@ class RemoteDataFirstStrategyTest {
                 storage.append(data)
             }
         }
-
 
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 2
@@ -225,7 +217,6 @@ class RemoteDataFirstStrategyTest {
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
 
-
     @Test
     fun `test start() - with network error and storage error - returns error`() {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
@@ -249,7 +240,6 @@ class RemoteDataFirstStrategyTest {
                 storage.append(data)
             }
         }
-
 
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 3
@@ -284,7 +274,6 @@ class RemoteDataFirstStrategyTest {
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
 
-
     @Test
     fun `test start() - without network connexion - returns local wrapped data`() {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
@@ -302,7 +291,6 @@ class RemoteDataFirstStrategyTest {
                 storage.append(data)
             }
         }
-
 
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 2
@@ -329,7 +317,6 @@ class RemoteDataFirstStrategyTest {
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
 
-
     @Test
     fun `test start() - without network connexion nor storage - returns error`() {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
@@ -348,7 +335,6 @@ class RemoteDataFirstStrategyTest {
             }
         }
 
-
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 1
         Mockito.verify(liveData, Mockito.times(accessCount)).postValue(resultCaptor.capture())
@@ -365,7 +351,6 @@ class RemoteDataFirstStrategyTest {
         // Save
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
-
 
     @Test
     fun `test start() - without network connexion and storage error - returns error`() {
@@ -387,7 +372,6 @@ class RemoteDataFirstStrategyTest {
                 storage.append(data)
             }
         }
-
 
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 2
@@ -413,6 +397,4 @@ class RemoteDataFirstStrategyTest {
         // Save
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
-
-
 }

@@ -16,7 +16,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -28,7 +27,6 @@ import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.eq
 import org.mockito.Captor
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when` as _when
@@ -36,7 +34,6 @@ import org.mockito.MockitoAnnotations
 import org.mockito.junit.jupiter.MockitoExtension
 import java.lang.StringBuilder
 import kotlin.reflect.full.isSubclassOf
-
 
 @ExtendWith(MockitoExtension::class)
 class LocalDataAwareFirstStrategyTest {
@@ -84,7 +81,6 @@ class LocalDataAwareFirstStrategyTest {
 
     @BeforeEach
     fun init() {
-
     }
 
     @AfterEach
@@ -164,7 +160,6 @@ class LocalDataAwareFirstStrategyTest {
             }
         }
 
-
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 3
         verify(liveData, times(accessCount)).postValue(resultCaptor.capture())
@@ -198,7 +193,6 @@ class LocalDataAwareFirstStrategyTest {
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
 
-
     @Test
     fun `test start() - with network error and no storage - returns error`() {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
@@ -219,7 +213,6 @@ class LocalDataAwareFirstStrategyTest {
                 storage.append(data)
             }
         }
-
 
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 2
@@ -246,7 +239,6 @@ class LocalDataAwareFirstStrategyTest {
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
 
-
     @Test
     fun `test start() - with network error and storage error - returns error`() {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
@@ -270,7 +262,6 @@ class LocalDataAwareFirstStrategyTest {
                 storage.append(data)
             }
         }
-
 
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 3
@@ -305,7 +296,6 @@ class LocalDataAwareFirstStrategyTest {
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
 
-
     @Test
     fun `test start() - without network connexion - returns local wrapped data`() {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
@@ -323,7 +313,6 @@ class LocalDataAwareFirstStrategyTest {
                 storage.append(data)
             }
         }
-
 
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 2
@@ -350,7 +339,6 @@ class LocalDataAwareFirstStrategyTest {
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
 
-
     @Test
     fun `test start() - without network connexion nor storage - returns error`() {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
@@ -369,7 +357,6 @@ class LocalDataAwareFirstStrategyTest {
             }
         }
 
-
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 1
         verify(liveData, times(accessCount)).postValue(resultCaptor.capture())
@@ -386,7 +373,6 @@ class LocalDataAwareFirstStrategyTest {
         // Save
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
-
 
     @Test
     fun `test start() - without network connexion and storage error - returns error`() {
@@ -408,7 +394,6 @@ class LocalDataAwareFirstStrategyTest {
                 storage.append(data)
             }
         }
-
 
         // Assert //////////////////////////////////////////////////////////////////////////////////
         val accessCount = 2
@@ -434,6 +419,4 @@ class LocalDataAwareFirstStrategyTest {
         // Save
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
-
-
 }

@@ -5,7 +5,6 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.quicklib.android.mvvm.QuickView
 import com.quicklib.android.mvvm.viewmodel.QuickViewModel
