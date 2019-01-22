@@ -100,13 +100,11 @@ class LocalDataAwareFirstStrategyTest {
         }
         val mockNetworkState = true
         val mockLocalState = true
-        val localValidity = true
 
         // Act /////////////////////////////////////////////////////////////////////////////////////
         mockLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         runBlocking {
             val sut = object : SutStrategy(liveData = liveData) {
-                override suspend fun isValid(data: String) = localValidity
                 override fun isRemoteAvailable(): Boolean = mockNetworkState
                 override fun isLocalAvailable(): Boolean = mockLocalState
                 override suspend fun fetchData(): Deferred<String> = CompletableDeferred(TAG_NETWORK)
@@ -150,12 +148,10 @@ class LocalDataAwareFirstStrategyTest {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
         val mockNetworkState = true
         val mockLocalState = true
-        val localValidity = true
 
         // Act /////////////////////////////////////////////////////////////////////////////////////
         mockLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         val sut = object : SutStrategy(liveData = liveData) {
-            override suspend fun isValid(data: String) = localValidity
             override fun isRemoteAvailable(): Boolean = mockNetworkState
             override fun isLocalAvailable(): Boolean = mockLocalState
             override suspend fun fetchData(): Deferred<String> {
@@ -208,12 +204,10 @@ class LocalDataAwareFirstStrategyTest {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
         val mockNetworkState = true
         val mockLocalState = false
-        val localValidity = true
 
         // Act /////////////////////////////////////////////////////////////////////////////////////
         mockLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         val sut = object : SutStrategy(liveData = liveData) {
-            override suspend fun isValid(data: String) = localValidity
             override fun isRemoteAvailable(): Boolean = mockNetworkState
             override fun isLocalAvailable(): Boolean = mockLocalState
             override suspend fun fetchData(): Deferred<String> {
@@ -258,12 +252,10 @@ class LocalDataAwareFirstStrategyTest {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
         val mockNetworkState = true
         val mockLocalState = true
-        val localValidity = true
 
         // Act /////////////////////////////////////////////////////////////////////////////////////
         mockLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         val sut = object : SutStrategy(liveData = liveData) {
-            override suspend fun isValid(data: String) = localValidity
             override fun isRemoteAvailable(): Boolean = mockNetworkState
             override fun isLocalAvailable(): Boolean = mockLocalState
             override suspend fun fetchData(): Deferred<String> {
@@ -319,12 +311,10 @@ class LocalDataAwareFirstStrategyTest {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
         val mockNetworkState = false
         val mockLocalState = true
-        val localValidity = true
 
         // Act /////////////////////////////////////////////////////////////////////////////////////
         mockLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         val sut = object : SutStrategy(liveData = liveData) {
-            override suspend fun isValid(data: String) = localValidity
             override fun isRemoteAvailable(): Boolean = mockNetworkState
             override fun isLocalAvailable(): Boolean = mockLocalState
             override suspend fun fetchData(): Deferred<String> = CompletableDeferred(TAG_NETWORK)
@@ -366,12 +356,10 @@ class LocalDataAwareFirstStrategyTest {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
         val mockNetworkState = false
         val mockLocalState = false
-        val localValidity = true
 
         // Act /////////////////////////////////////////////////////////////////////////////////////
         mockLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         val sut = object : SutStrategy(liveData = liveData) {
-            override suspend fun isValid(data: String) = localValidity
             override fun isRemoteAvailable(): Boolean = mockNetworkState
             override fun isLocalAvailable(): Boolean = mockLocalState
             override suspend fun fetchData(): Deferred<String> = CompletableDeferred(TAG_NETWORK)
@@ -405,12 +393,10 @@ class LocalDataAwareFirstStrategyTest {
         // Arrange /////////////////////////////////////////////////////////////////////////////////
         val mockNetworkState = false
         val mockLocalState = true
-        val localValidity = true
 
         // Act /////////////////////////////////////////////////////////////////////////////////////
         mockLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         val sut = object : SutStrategy(liveData = liveData) {
-            override suspend fun isValid(data: String) = localValidity
             override fun isRemoteAvailable(): Boolean = mockNetworkState
             override fun isLocalAvailable(): Boolean = mockLocalState
             override suspend fun fetchData(): Deferred<String> = CompletableDeferred(TAG_NETWORK)

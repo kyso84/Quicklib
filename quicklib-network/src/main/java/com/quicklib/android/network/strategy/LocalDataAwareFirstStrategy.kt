@@ -60,9 +60,6 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
     @MainThread
     open fun isLocalAvailable(): Boolean = true
 
-    @MainThread
-    abstract suspend fun isValid(data: T): Boolean
-
     @WorkerThread
     abstract suspend fun fetchData(): Deferred<T>
 
