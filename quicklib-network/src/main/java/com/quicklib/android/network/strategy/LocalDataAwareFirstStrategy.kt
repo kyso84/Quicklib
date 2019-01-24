@@ -44,7 +44,6 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
     private fun askRemote(warning: Throwable? = null) = mainScope.launch {
         if (isRemoteAvailable()) {
             try {
-                liveData.postValue(DataWrapper(status = DataStatus.FETCHING, localData = false, warning = warning, strategy = this@LocalDataAwareFirstStrategy::class))
                 val task = withContext(remoteScope.coroutineContext) { fetchData() }
                 val data = task.await()
                 withContext(localScope.coroutineContext) { writeData(data) }
