@@ -12,7 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData(), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, liveData = liveData, debug = debug) {
+abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData()) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, liveData = liveData) {
 
     override fun start(): Job = askRemote()
 
@@ -26,9 +26,7 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
 
                 withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
-                if (debug) {
-                    error.printStackTrace()
-                }
+                onRemoteFail(error)
                 askLocal(error)
             }
         } else {
@@ -44,9 +42,6 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
                 val data = task.await()
                 liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = true, warning = warning, strategy = this@RemoteDataFirstStrategy::class))
             } catch (error: Throwable) {
-                if (debug) {
-                    error.printStackTrace()
-                }
                 liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true, warning = warning, strategy = this@RemoteDataFirstStrategy::class))
             }
         } else {
@@ -59,6 +54,9 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
 
     @MainThread
     open fun isLocalAvailable(): Boolean = true
+
+    @MainThread
+    open fun onRemoteFail(error:Throwable){}
 
     @WorkerThread
     abstract suspend fun fetchData(): Deferred<T>

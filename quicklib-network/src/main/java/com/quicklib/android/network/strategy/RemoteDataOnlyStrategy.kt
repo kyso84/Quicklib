@@ -12,7 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class RemoteDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData(), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, remoteScope = remoteScope, liveData = liveData, debug = debug) {
+abstract class RemoteDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData()) : DataStrategy<T>(mainScope = mainScope, remoteScope = remoteScope, liveData = liveData) {
 
     override fun start(): Job = askRemote()
 
@@ -24,9 +24,6 @@ abstract class RemoteDataOnlyStrategy<T>(mainScope: CoroutineScope = CoroutineSc
                 val data = task.await()
                 liveData.postValue(DataWrapper(value = data, status = DataStatus.SUCCESS, localData = false, strategy = this@RemoteDataOnlyStrategy::class))
             } catch (error: Throwable) {
-                if (debug) {
-                    error.printStackTrace()
-                }
                 liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = false, strategy = this@RemoteDataOnlyStrategy::class))
             }
         } else {

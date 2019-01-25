@@ -13,7 +13,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class LocalDataAwareStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData(), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, liveData = liveData, debug = debug) {
+abstract class LocalDataAwareStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData()) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, liveData = liveData) {
 
     override fun start(): Job = askLocal()
 
@@ -30,9 +30,6 @@ abstract class LocalDataAwareStrategy<T>(mainScope: CoroutineScope = CoroutineSc
                     }
                 }
             } catch (error: Throwable) {
-                if (debug) {
-                    error.printStackTrace()
-                }
                 liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true, strategy = this@LocalDataAwareStrategy::class))
             }
         } else {

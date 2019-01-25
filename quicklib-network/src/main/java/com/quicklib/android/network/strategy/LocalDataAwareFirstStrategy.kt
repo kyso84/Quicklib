@@ -13,7 +13,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData(), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, liveData = liveData, debug = debug) {
+abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData()) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, liveData = liveData) {
 
     override fun start(): Job = askLocal()
 
@@ -31,9 +31,7 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
                 }
                 askRemote()
             } catch (error: Throwable) {
-                if (debug) {
-                    error.printStackTrace()
-                }
+                onLocalFail(error)
                 askRemote(warning = error)
             }
         } else {
@@ -48,9 +46,6 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
                 val data = task.await()
                 withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
-                if (debug) {
-                    error.printStackTrace()
-                }
                 liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = false, warning = warning, strategy = this@LocalDataAwareFirstStrategy::class))
             }
         } else {
@@ -63,6 +58,9 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
 
     @MainThread
     open fun isLocalAvailable(): Boolean = true
+
+    @MainThread
+    open fun onLocalFail(error:Throwable){}
 
     @WorkerThread
     abstract suspend fun fetchData(): Deferred<T>

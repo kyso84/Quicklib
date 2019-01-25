@@ -12,7 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData(), debug: Boolean = false) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, liveData = liveData, debug = debug) {
+abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Default), localScope: CoroutineScope = CoroutineScope(Dispatchers.IO), remoteScope: CoroutineScope = CoroutineScope(Dispatchers.IO), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData()) : DataStrategy<T>(mainScope = mainScope, localScope = localScope, remoteScope = remoteScope, liveData = liveData) {
 
     override fun start(): Job = askLocal()
 
@@ -28,9 +28,7 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
                     askRemote(value = data, warning = IllegalArgumentException("local value is not valid"))
                 }
             } catch (error: Throwable) {
-                if (debug) {
-                    error.printStackTrace()
-                }
+                onRemoteFail(error)
                 askRemote(warning = error)
             }
         } else {
@@ -48,9 +46,6 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
 
                 withContext(localScope.coroutineContext) { writeData(data) }
             } catch (error: Throwable) {
-                if (debug) {
-                    error.printStackTrace()
-                }
                 liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = false, warning = warning, strategy = this@LocalDataFirstStrategy::class))
             }
         } else {
@@ -63,6 +58,9 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
 
     @MainThread
     open fun isLocalAvailable(): Boolean = true
+
+    @MainThread
+    open fun onRemoteFail(error:Throwable){}
 
     @MainThread
     abstract suspend fun isValid(data: T): Boolean
