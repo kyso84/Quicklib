@@ -27,11 +27,10 @@ abstract class WriteRemoteDataStrategy<T>(val value: T, mainScope: CoroutineScop
             } catch (error: Throwable) {
                 liveData.postValue(DataWrapper(error = error, status = DataStatus.ERROR, localData = true, strategy = this@WriteRemoteDataStrategy::class))
             }
-        }else{
-            liveData.postValue(DataWrapper(value = value, error = IllegalStateException("Remote value is not available"), status = DataStatus.INVALID, localData = false,strategy = this@WriteRemoteDataStrategy::class))
+        } else {
+            liveData.postValue(DataWrapper(value = value, error = IllegalStateException("Remote value is not available"), status = DataStatus.INVALID, localData = false, strategy = this@WriteRemoteDataStrategy::class))
         }
     }
-
 
     @MainThread
     open fun isRemoteAvailable(): Boolean = true
@@ -40,6 +39,5 @@ abstract class WriteRemoteDataStrategy<T>(val value: T, mainScope: CoroutineScop
     abstract suspend fun writeDataRemote(data: T): Deferred<T>
 
     @WorkerThread
-    open fun dataSaved(data:T){}
-
+    open fun dataSaved(data: T) {}
 }

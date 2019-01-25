@@ -60,7 +60,7 @@ abstract class LocalDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineSc
     open fun isLocalAvailable(): Boolean = true
 
     @MainThread
-    open fun onRemoteFail(error:Throwable){}
+    open fun onRemoteFail(error: Throwable) {}
 
     @MainThread
     abstract suspend fun isValid(data: T): Boolean

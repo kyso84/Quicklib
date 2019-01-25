@@ -60,7 +60,7 @@ abstract class LocalDataAwareFirstStrategy<T>(mainScope: CoroutineScope = Corout
     open fun isLocalAvailable(): Boolean = true
 
     @MainThread
-    open fun onLocalFail(error:Throwable){}
+    open fun onLocalFail(error: Throwable) {}
 
     @WorkerThread
     abstract suspend fun fetchData(): Deferred<T>

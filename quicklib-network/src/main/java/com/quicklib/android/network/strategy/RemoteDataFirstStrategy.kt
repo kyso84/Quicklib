@@ -56,7 +56,7 @@ abstract class RemoteDataFirstStrategy<T>(mainScope: CoroutineScope = CoroutineS
     open fun isLocalAvailable(): Boolean = true
 
     @MainThread
-    open fun onRemoteFail(error:Throwable){}
+    open fun onRemoteFail(error: Throwable) {}
 
     @WorkerThread
     abstract suspend fun fetchData(): Deferred<T>
