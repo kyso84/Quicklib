@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * Note that only one observer is going to be notified of changes.
  * Source: https://github.com/googlesamples/android-architecture/blob/dev-todo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java
  */
-internal class SingleLiveEvent<T> : MutableLiveData<T>() {
+open class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     companion object {
         private val TAG = "SingleLiveEvent"
