@@ -1,6 +1,5 @@
 package com.quicklib.android.mvvm.arch
 
-
 import android.util.Log
 
 import androidx.annotation.MainThread
