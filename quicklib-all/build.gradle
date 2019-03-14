@@ -1,16 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'maven'
-
-
-// Project setup
-println 'commonCompileSdkVersion=' + commonCompileSdkVersion;
-println 'commonBuildToolsVersion=' + commonBuildToolsVersion;
-println 'commonMinSdkVersion=' + commonMinSdkVersion;
-println 'commonTargetSdkVersion=' + commonTargetSdkVersion;
-println 'projectVersionCode=' + projectVersionCode;
-println 'projectVersionName=' + projectVersionName;
 
 android {
     compileSdkVersion commonCompileSdkVersion.toInteger()
@@ -31,6 +26,7 @@ android {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':quicklib-app')
     implementation project(':quicklib-calendar')
@@ -40,5 +36,10 @@ dependencies {
     implementation project(':quicklib-ratioview')
     implementation project(':quicklib-recyclerview')
     implementation project(':quicklib-security')
+    implementation project(':quicklib-mvvm')
+    implementation project(':quicklib-network')
 }
 apply from: '../publish.gradle'
+repositories {
+    mavenCentral()
+}

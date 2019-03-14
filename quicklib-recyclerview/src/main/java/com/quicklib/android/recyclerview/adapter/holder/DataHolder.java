@@ -1,11 +1,11 @@
 package com.quicklib.android.recyclerview.adapter.holder;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import com.quicklib.android.core.common.DataSetEvent;
 
 /**

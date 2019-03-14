@@ -1,15 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'maven'
-
-// Project setup
-println 'commonCompileSdkVersion=' + commonCompileSdkVersion;
-println 'commonBuildToolsVersion=' + commonBuildToolsVersion;
-println 'commonMinSdkVersion=' + commonMinSdkVersion;
-println 'commonTargetSdkVersion=' + commonTargetSdkVersion;
-println 'projectVersionCode=' + projectVersionCode;
-println 'projectVersionName=' + projectVersionName;
 
 android {
     compileSdkVersion commonCompileSdkVersion.toInteger()
@@ -33,19 +29,21 @@ android {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation('com.android.support:support-compat:' + supportVersion)
-    implementation('com.android.support:support-core-utils:' + supportVersion)
-    implementation('com.android.support:support-annotations:' + supportVersion)
-    implementation('com.android.support:appcompat-v7:' + supportVersion)
 
-    implementation('com.squareup.picasso:picasso:' + picassoVersion)
+    implementation("androidx.annotation:annotation:$androidxAnnotationVersion")
+    implementation("androidx.appcompat:appcompat:$androidxAppCompatVersion")
 
-    testImplementation ('junit:junit:' + junitVersion)
-    testImplementation ('org.assertj:assertj-core:' + assertJVersion)
-    testImplementation ('org.mockito:mockito-all:' + mockitoVersion)
-    testImplementation ('org.powermock:powermock:' + powerMockVersion)
-    testImplementation ('org.powermock:powermock-module-junit4:' + powerMockVersion)
-    testImplementation ('org.powermock:powermock-api-mockito2:'  + powerMockVersion)
+    implementation("com.squareup.picasso:picasso:$picassoVersion")
+
+    // Unit Tests
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testImplementation("org.assertj:assertj-core:$assertJVersion")
+    testImplementation("org.mockito:mockito-core:$mockitoVersion")
 }
 apply from: '../publish.gradle'
+repositories {
+    mavenCentral()
+}

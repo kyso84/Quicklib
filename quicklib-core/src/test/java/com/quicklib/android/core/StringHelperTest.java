@@ -2,7 +2,8 @@ package com.quicklib.android.core;
 
 import com.quicklib.android.core.helper.StringHelper;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

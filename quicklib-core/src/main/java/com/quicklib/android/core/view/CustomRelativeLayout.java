@@ -3,8 +3,8 @@ package com.quicklib.android.core.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.quicklib.android.core.bo.CustomViewState;
-
+@Deprecated
 public abstract class CustomRelativeLayout extends RelativeLayout {
     @Nullable
     private Bundle arguments = null;

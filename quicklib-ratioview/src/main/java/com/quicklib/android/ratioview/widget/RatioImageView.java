@@ -3,10 +3,11 @@ package com.quicklib.android.ratioview.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
 import com.quicklib.android.ratioview.R;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 
 public class RatioImageView extends AppCompatImageView {
