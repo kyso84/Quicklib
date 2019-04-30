@@ -2,7 +2,7 @@
 
 
 buildscript {
-    ext.kotlin_version = '1.3.20'
+    ext.kotlin_version = '1.3.31'
     repositories {
         google()
         jcenter()
@@ -13,12 +13,12 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.27.0'
+        classpath 'io.fabric.tools:gradle:1.28.1'
         classpath 'com.google.gms:google-services:4.2.0'
-        classpath 'com.android.tools.build:gradle:3.5.0-alpha03'
+        classpath 'com.android.tools.build:gradle:3.5.0-alpha13'
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.0.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-beta01"
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -44,7 +44,8 @@ subprojects {
 
 
 //apply from: 'http://ws.kysoprod.com/versions.gradle'
-apply from: 'http://home.kysoprod.com/versions.gradle'
+//apply from: 'http://home.kysoprod.com/versions.gradle'
+apply from: 'https://raw.githubusercontent.com/kyso84/versions/master/versions.gradle'
 apply from:  project.rootDir.path + '/project.gradle'
 
 // Project setup
