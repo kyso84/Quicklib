@@ -126,7 +126,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[0].localData)
         assert(resultList[0].warning == null)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == observerCaptor.value)
         assert(resultList[1].status == DataStatus.SUCCESS)
@@ -134,7 +134,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(!resultList[1].localData)
         assert(resultList[1].warning == null)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Save
         verify(storage, times(1)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -172,7 +172,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(!resultList[0].localData)
         assert(resultList[0].warning == null)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == null)
         assert(resultList[1].status == DataStatus.LOADING)
@@ -180,7 +180,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is UnsupportedOperationException && resultList[1].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Resource #3
         assert(resultList[2].value == TAG_LOCAL)
         assert(resultList[2].status == DataStatus.SUCCESS)
@@ -188,7 +188,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[2].localData)
         assert(resultList[2].warning is UnsupportedOperationException && resultList[2].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[2].timestamp > 0)
-        assert(resultList[2].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[2].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Save
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -226,7 +226,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(!resultList[0].localData)
         assert(resultList[0].warning == null)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == null)
         assert(resultList[1].status == DataStatus.INVALID)
@@ -234,7 +234,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is UnsupportedOperationException && resultList[1].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Save
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -275,7 +275,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(!resultList[0].localData)
         assert(resultList[0].warning == null)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == null)
         assert(resultList[1].status == DataStatus.LOADING)
@@ -283,7 +283,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is UnsupportedOperationException && resultList[1].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Resource #3
         assert(resultList[2].value == null)
         assert(resultList[2].status == DataStatus.ERROR)
@@ -291,7 +291,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[2].localData)
         assert(resultList[2].warning is UnsupportedOperationException && resultList[2].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[2].timestamp > 0)
-        assert(resultList[2].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[2].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Save
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -326,7 +326,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[0].localData)
         assert(resultList[0].warning is IllegalStateException && resultList[0].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == TAG_LOCAL)
         assert(resultList[1].status == DataStatus.SUCCESS)
@@ -334,7 +334,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is IllegalStateException && resultList[1].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Save
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -369,7 +369,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[0].localData)
         assert(resultList[0].warning is IllegalStateException && resultList[0].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Save
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -407,7 +407,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[0].localData)
         assert(resultList[0].warning is IllegalStateException && resultList[0].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == null)
         assert(resultList[1].status == DataStatus.ERROR)
@@ -415,7 +415,7 @@ class LocalDataAwareFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is IllegalStateException && resultList[1].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(LocalDataAwareFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(LocalDataAwareFirstStrategy::class) ?: false)
         // Save
         verify(storage, times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }

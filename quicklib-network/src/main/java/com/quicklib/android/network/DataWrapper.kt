@@ -10,5 +10,5 @@ data class DataWrapper<T>(
     val localData: Boolean = false,
     val warning: Throwable? = null,
     val timestamp: Long = System.currentTimeMillis(),
-    val strategy: KClass<out DataStrategy<T>>
+    val strategy: KClass<out DataStrategy<T>>? = null
 )

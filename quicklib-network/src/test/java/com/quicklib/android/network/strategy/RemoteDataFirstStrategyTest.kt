@@ -104,7 +104,7 @@ class RemoteDataFirstStrategyTest {
         assert(!resultList[0].localData)
         assert(resultList[0].warning == null)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == TAG_NETWORK)
         assert(resultList[1].status == DataStatus.SUCCESS)
@@ -112,7 +112,7 @@ class RemoteDataFirstStrategyTest {
         assert(!resultList[1].localData)
         assert(resultList[1].warning == null)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Save
         Mockito.verify(storage, Mockito.times(1)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -150,7 +150,7 @@ class RemoteDataFirstStrategyTest {
         assert(!resultList[0].localData)
         assert(resultList[0].warning == null)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == null)
         assert(resultList[1].status == DataStatus.LOADING)
@@ -158,7 +158,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is UnsupportedOperationException && resultList[1].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Resource #3
         assert(resultList[2].value == TAG_LOCAL)
         assert(resultList[2].status == DataStatus.SUCCESS)
@@ -166,7 +166,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[2].localData)
         assert(resultList[2].warning is UnsupportedOperationException && resultList[2].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[2].timestamp > 0)
-        assert(resultList[2].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[2].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Save
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -204,7 +204,7 @@ class RemoteDataFirstStrategyTest {
         assert(!resultList[0].localData)
         assert(resultList[0].warning == null)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == null)
         assert(resultList[1].status == DataStatus.INVALID)
@@ -212,7 +212,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is UnsupportedOperationException && resultList[1].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Save
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -253,7 +253,7 @@ class RemoteDataFirstStrategyTest {
         assert(!resultList[0].localData)
         assert(resultList[0].warning == null)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == null)
         assert(resultList[1].status == DataStatus.LOADING)
@@ -261,7 +261,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is UnsupportedOperationException && resultList[1].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Resource #3
         assert(resultList[2].value == null)
         assert(resultList[2].status == DataStatus.ERROR)
@@ -269,7 +269,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[2].localData)
         assert(resultList[2].warning is UnsupportedOperationException && resultList[2].warning?.message == TAG_NETWORK_ERROR)
         assert(resultList[2].timestamp > 0)
-        assert(resultList[2].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[2].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Save
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -304,7 +304,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[0].localData)
         assert(resultList[0].warning is IllegalStateException && resultList[0].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == TAG_LOCAL)
         assert(resultList[1].status == DataStatus.SUCCESS)
@@ -312,7 +312,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is IllegalStateException && resultList[1].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Save
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -347,7 +347,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[0].localData)
         assert(resultList[0].warning is IllegalStateException && resultList[0].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Save
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
@@ -385,7 +385,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[0].localData)
         assert(resultList[0].warning is IllegalStateException && resultList[0].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[0].timestamp > 0)
-        assert(resultList[0].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[0].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Resource #2
         assert(resultList[1].value == null)
         assert(resultList[1].status == DataStatus.ERROR)
@@ -393,7 +393,7 @@ class RemoteDataFirstStrategyTest {
         assert(resultList[1].localData)
         assert(resultList[1].warning is IllegalStateException && resultList[1].warning?.message == TAG_NETWORK_UNAVAILABLE)
         assert(resultList[1].timestamp > 0)
-        assert(resultList[1].strategy.isSubclassOf(RemoteDataFirstStrategy::class))
+        assert(resultList[1].strategy?.isSubclassOf(RemoteDataFirstStrategy::class) ?: false)
         // Save
         Mockito.verify(storage, Mockito.times(0)).append(ArgumentMatchers.eq(TAG_NETWORK))
     }
