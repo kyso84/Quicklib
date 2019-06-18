@@ -1,1 +1,1 @@
-include ':quicklib-core', ':quicklib-calendar', ':quicklib-multidex', ':quicklib-app', ':quicklib-ratioview', ':quicklib-security', ':quicklib-security', ':quicklib-maps', ':quicklib-recyclerview', ':quicklib-all', ':quicklib-mvvm', ':quicklib-network'
+include ':quicklib-core', ':quicklib-calendar', ':quicklib-multidex', ':quicklib-app', ':quicklib-ratioview', ':quicklib-security', ':quicklib-security', ':quicklib-maps', ':quicklib-recyclerview', ':quicklib-all', ':quicklib-mvvm', ':quicklib-network', ':quicklib-network-firebase'

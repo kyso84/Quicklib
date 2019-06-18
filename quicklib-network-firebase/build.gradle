@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'maven'
+apply from: '../publish.gradle'
+apply from: '../ktlint.gradle'
+
+android {
+    compileSdkVersion commonCompileSdkVersion.toInteger()
+    buildToolsVersion commonBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion commonMinSdkVersion.toInteger()
+        targetSdkVersion commonTargetSdkVersion.toInteger()
+        versionCode projectVersionCode.toInteger()
+        versionName projectVersionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation ("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':quicklib-core')
+    implementation project(':quicklib-app')
+    implementation project(':quicklib-recyclerview')
+    implementation project(':quicklib-network')
+
+    // Firebase
+    implementation("com.google.firebase:firebase-database:$firebaseDatabaseVersion")
+
+    // Ktlint
+    ktlint("com.github.shyiko:ktlint:$ktlintVersion")
+
+    // Ktx
+    implementation("androidx.core:core-ktx:$androidxCoreKtxVersion")
+
+    // COROUTINES
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesAndroidVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroidVersion")
+
+    // SQUARE
+    implementation("com.squareup.okio:okio:$okIoVersion")
+    implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
+
+    // Arch
+    implementation("androidx.lifecycle:lifecycle-extensions:$androidxLifeCycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$androidxLifeCycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata:$androidxLifeCycleVersion")
+    kapt("androidx.lifecycle:lifecycle-compiler:$androidxLifeCycleVersion")
+
+    // Unit Tests
+    testImplementation ("androidx.arch.core:core-testing:$androidxLifeCycleVersion")
+    testImplementation ("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testImplementation ("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+    testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testImplementation ("org.mockito:mockito-core:$mockitoVersion")
+    testImplementation ("org.mockito:mockito-junit-jupiter:$mockitoVersion")
+    testImplementation ("org.mockito:mockito-inline:$mockitoVersion")
+}
+repositories {
+    mavenCentral()
+}
