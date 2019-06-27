@@ -45,6 +45,8 @@ dependencies {
 
     // Firebase
     implementation("com.google.firebase:firebase-database:$firebaseDatabaseVersion")
+    implementation("com.google.firebase:firebase-firestore:$firebaseFirestoreVersion")
+    implementation("com.google.firebase:firebase-firestore-ktx:$firebaseFirestoreVersion")
 
     // Ktlint
     ktlint("com.github.shyiko:ktlint:$ktlintVersion")

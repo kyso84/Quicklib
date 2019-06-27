@@ -6,5 +6,6 @@ enum class DataStatus {
     SUCCESS,
     ERROR,
     INVALID,
+    DELETED,
     UNKNOWN
 }

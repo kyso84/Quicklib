@@ -1,0 +1,20 @@
+[
+  {
+    "displayName": "GMT-05:00",
+    "rawOffset": -18000000,
+    "id": "America/Montreal",
+    "dstsavings": 3600000
+  },
+  {
+    "displayName": "GMT-05:00",
+    "rawOffset": -18000000,
+    "id": "America/Montreal",
+    "dstsavings": 3600000
+  },
+  {
+    "displayName": "GMT-05:00",
+    "rawOffset": -18000000,
+    "id": "America/Montreal",
+    "dstsavings": 3600000
+  }
+]
