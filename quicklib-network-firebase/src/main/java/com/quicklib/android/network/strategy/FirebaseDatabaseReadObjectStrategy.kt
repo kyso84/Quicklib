@@ -20,11 +20,7 @@ abstract class FirebaseDatabaseReadObjectStrategy<T>(private val databaseRef: Da
                 liveData.postValue(DataWrapper(status = DataStatus.LOADING, localData = true, strategy = this@FirebaseDatabaseReadObjectStrategy::class))
                 databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        if (!snapshot.exists() || !snapshot.hasChildren()) {
-                            liveData.postValue(DataWrapper(value = deserialize(snapshot), status = DataStatus.SUCCESS, localData = true, strategy = this@FirebaseDatabaseReadObjectStrategy::class))
-                        } else {
-                            liveData.postValue(DataWrapper(error = IllegalStateException("Type mismatch: An object is expected but a list was found. If truly want a list, please use FirebaseDatabaseReadListStrategy instead"), status = DataStatus.ERROR, localData = true, strategy = this@FirebaseDatabaseReadObjectStrategy::class))
-                        }
+                        liveData.postValue(DataWrapper(value = deserialize(snapshot), status = DataStatus.SUCCESS, localData = true, strategy = this@FirebaseDatabaseReadObjectStrategy::class))
                     }
 
                     override fun onCancelled(error: DatabaseError) {
