@@ -5,18 +5,29 @@ import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.launch
 
-abstract class FirebaseDatabaseWriteStrategy<T>(private val databaseRef: DatabaseReference, private val data: T, private val generatedKey: ((newId: String?) -> T)? = null) : DataStrategy<T>() {
+abstract class FirebaseDatabaseWriteStrategy<T>(private val databaseRef: DatabaseReference, private val data: T, private val dataId: (() -> String)? = null, private val newDataId: ((newId: String?) -> T)? = null) : DataStrategy<T>() {
 
     override fun start() = write()
 
     private fun write() = mainScope.launch {
         try {
-            val path = databaseRef.push()
-            val key = path.key
-            val value = generatedKey?.let {
-                it.invoke(key)
-            } ?: run {
-                data
+            var path: DatabaseReference = databaseRef
+            var value: T = data
+
+            val existingId = dataId?.invoke()
+            if (!existingId.isNullOrEmpty()) {
+                path = databaseRef.child(existingId)
+                value = data
+            } else {
+                // Generate an id if needed
+                path = databaseRef.push()
+
+                // Update the current data with generated id
+                newDataId?.let {
+                    value = it.invoke(path.key)
+                } ?: run {
+                    value = data
+                }
             }
 
             path.setValue(value) { error, ref ->
