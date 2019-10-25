@@ -7,5 +7,5 @@ import androidx.lifecycle.ViewModel
 interface QuickView<VDB : ViewDataBinding, VM : ViewModel> {
     fun getViewModelInstance(): VM
     fun onBindingReady(binding: VDB)
-    fun onViewReady(savedInstanceState: Bundle?)
+    fun onViewReady(viewModel: VM, savedInstanceState: Bundle?)
 }
