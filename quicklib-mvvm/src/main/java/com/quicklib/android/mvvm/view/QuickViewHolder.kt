@@ -36,7 +36,6 @@ abstract class QuickViewHolder<T, VDB : ViewDataBinding, VM : ViewModel>(lifecyc
 
     abstract fun bind(data: T, position: Int)
 
-
     protected fun getBinding(): VDB = _binding?.get()?.let { it }
             ?: run { throw IllegalStateException("Unable to provide binding object.") }
 
