@@ -14,13 +14,13 @@ import android.widget.SpinnerAdapter
  * @since 16-11-30
  * Copyright (C) 2015 Quicklib
  */
-abstract class RecyclerListAdapter<T, VH : RecyclerView.ViewHolder>(private val list: MutableList<T> = mutableListOf()) : RecyclerView.Adapter<VH>(), ListAdapter, SpinnerAdapter {
+abstract class RecyclerListAdapter<T, VH : RecyclerView.ViewHolder>(protected val list: MutableList<T> = mutableListOf()) : RecyclerView.Adapter<VH>(), ListAdapter, SpinnerAdapter {
 
     companion object {
         const val HOLDER_TAG = 84000
     }
 
-    protected val legacyObserverList = mutableListOf<DataSetObserver>()
+    private val legacyObserverList = mutableListOf<DataSetObserver>()
 
     private val internalObserver = object : RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
@@ -51,8 +51,15 @@ abstract class RecyclerListAdapter<T, VH : RecyclerView.ViewHolder>(private val 
     }
 
 
-    init {
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
         registerAdapterDataObserver(internalObserver)
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        unregisterAdapterDataObserver(internalObserver)
+        legacyObserverList.clear()
     }
 
     override fun getItemCount(): Int = list.size

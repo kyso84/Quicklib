@@ -33,9 +33,7 @@ abstract class QuickViewHolder<T, VDB : ViewDataBinding, VM : ViewModel>(lifecyc
 
     override fun onBindingReady(binding: VDB) {}
     override fun onViewReady(viewModel: VM, savedInstanceState: Bundle?) {}
-
-    abstract fun bind(data: T, position: Int)
-
+    override fun getViewModelInstance(): VM  = getViewModel()
 
     protected fun getBinding(): VDB = _binding?.get()?.let { it }
             ?: run { throw IllegalStateException("Unable to provide binding object.") }
