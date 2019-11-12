@@ -1,14 +1,14 @@
 package com.quicklib.android.network.strategy
 
 import androidx.annotation.MainThread
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 
 abstract class SynchronousStrategy<T>(mainScope: CoroutineScope = CoroutineScope(Dispatchers.Main), liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData()) : DataStrategy<T>(mainScope = mainScope, liveData = liveData) {
     override fun start(): Job = askData()

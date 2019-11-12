@@ -6,6 +6,8 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.MediatorLiveData
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
+import java.lang.StringBuilder
+import kotlin.reflect.full.isSubclassOf
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -14,19 +16,17 @@ import org.junit.Rule
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.rules.TestRule
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers
 import org.mockito.Captor
+import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import java.lang.StringBuilder
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.rules.TestRule
-import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
-import kotlin.reflect.full.isSubclassOf
 
 @ExtendWith(MockitoExtension::class)
 class RemoteDataFirstStrategyTest {

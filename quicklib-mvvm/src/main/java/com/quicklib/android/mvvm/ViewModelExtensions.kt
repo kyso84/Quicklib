@@ -42,4 +42,3 @@ inline fun <reified T : ViewModel> Fragment.createViewModel(crossinline factory:
         }
     }).get(clazz)
 }
-

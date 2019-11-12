@@ -1,15 +1,11 @@
 package com.quicklib.android.mvvm
 
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import java.text.NumberFormat
 import java.util.Currency
 import java.util.Locale
-
 
 object QuickBindingAdapters {
     @JvmStatic
@@ -133,5 +129,4 @@ object QuickBindingAdapters {
             textView.text = text
         }
     }
-
 }

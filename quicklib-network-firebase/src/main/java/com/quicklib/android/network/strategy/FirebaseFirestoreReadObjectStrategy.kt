@@ -1,15 +1,14 @@
 package com.quicklib.android.network.strategy
 
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.annotation.MainThread
+import androidx.lifecycle.MediatorLiveData
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.quicklib.android.network.DataStatus
+import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import com.quicklib.android.network.DataWrapper
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.lifecycle.MediatorLiveData
 
 abstract class FirebaseFirestoreReadObjectStrategy<T>(private val document: DocumentReference, liveData: MediatorLiveData<DataWrapper<T>> = MediatorLiveData()) : DataStrategy<T>() {
 

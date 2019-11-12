@@ -1,44 +1,37 @@
 package com.quicklib.android.mvvm.view
 
-import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.quicklib.android.core.common.Const
 import com.quicklib.android.mvvm.QuickView
 import java.lang.ref.WeakReference
 
-abstract class QuickViewHolder<T, VDB : ViewDataBinding, VM : ViewModel>(lifecycleOwner: LifecycleOwner, binding: VDB, viewModelProvider: (() -> VM)? = null) : RecyclerView.ViewHolder(binding.root), QuickView<VDB, VM> {
-    constructor(appCompatActivity: AppCompatActivity, binding: VDB, viewModelProvider: (() -> VM)? = null) : this(appCompatActivity as LifecycleOwner, binding, viewModelProvider)
-    constructor(fragment: Fragment, binding: VDB, viewModel: VM, viewModelProvider: (() -> VM)? = null) : this(fragment as LifecycleOwner, binding, viewModelProvider)
+abstract class QuickViewHolder<T, VDB : ViewDataBinding>(binding: VDB, lifecycleOwner: LifecycleOwner? = null) : RecyclerView.ViewHolder(binding.root), QuickView<VDB> {
+    constructor(binding: VDB, activity: AppCompatActivity? = null) : this(binding, activity as LifecycleOwner)
+    constructor(binding: VDB, fragment: Fragment? = null) : this(binding, fragment as LifecycleOwner)
 
-
+    @Transient
     private var _binding: WeakReference<VDB>? = null
-    private var _viewModel: WeakReference<VM>? = null
-
+    override var binding: VDB?
+        get() = _binding?.get().let { it } ?: run {
+            Log.w(Const.LOG_TAG, "Unable to provide binding object. Maybe you should wait after onBindingReady()")
+            null
+        }
+        set(value) {
+            _binding = value?.let { WeakReference(it) }
+        }
 
     init {
-        _binding = WeakReference(binding)
-        binding.lifecycleOwner = lifecycleOwner
-        onBindingReady(binding)
-
-        viewModelProvider?.let {
-            val viewModel = it.invoke()
-            _viewModel = WeakReference(viewModel)
-            onViewReady(viewModel, null)
+        lifecycleOwner?.let {
+            binding.lifecycleOwner = it
         }
+        this.binding = binding
+        onBindingReady(binding)
     }
 
     override fun onBindingReady(binding: VDB) {}
-    override fun onViewReady(viewModel: VM, savedInstanceState: Bundle?) {}
-    override fun getViewModelInstance(): VM  = getViewModel()
-
-    protected fun getBinding(): VDB = _binding?.get()?.let { it }
-            ?: run { throw IllegalStateException("Unable to provide binding object.") }
-
-    protected fun getViewModel(): VM = _viewModel?.get()?.let { it }
-            ?: run { throw IllegalStateException("Unable to provide viewModel object. Maybe you should provide a viewModelProvider at the class initialization") }
-
 }

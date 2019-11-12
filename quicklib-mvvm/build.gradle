@@ -41,7 +41,7 @@ dependencies {
     implementation project(":quicklib-recyclerview")
 
     // Ktlint
-    ktlint("com.github.shyiko:ktlint:$ktlintVersion")
+    ktlint("com.pinterest:ktlint:$ktlintVersion")
 
     // Ktx
     implementation("androidx.core:core-ktx:$androidxCoreKtxVersion")
@@ -54,7 +54,4 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$androidxLifeCycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata:$androidxLifeCycleVersion")
     kapt("androidx.lifecycle:lifecycle-compiler:$androidxLifeCycleVersion")
-}
-repositories {
-    mavenCentral()
 }

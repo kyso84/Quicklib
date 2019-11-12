@@ -4,6 +4,8 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.MediatorLiveData
 import com.google.firebase.firestore.DocumentReference
 import com.quicklib.android.network.DataWrapper
+import java.nio.charset.Charset
+import java.util.TimeZone
 import okio.buffer
 import okio.source
 import org.junit.jupiter.api.AfterEach
@@ -11,8 +13,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
-import java.nio.charset.Charset
-import java.util.TimeZone
 
 @ExtendWith(MockitoExtension::class)
 class FirebaseDatabaseReadListStrategyTest {

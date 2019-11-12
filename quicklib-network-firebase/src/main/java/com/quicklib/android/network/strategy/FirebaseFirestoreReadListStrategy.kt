@@ -1,14 +1,13 @@
 package com.quicklib.android.network.strategy
 
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.annotation.MainThread
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.QuerySnapshot
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import com.google.firebase.firestore.QuerySnapshot
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 abstract class FirebaseFirestoreReadListStrategy<T : Any>(private val collection: CollectionReference) : DataStrategy<List<T>>() {
 

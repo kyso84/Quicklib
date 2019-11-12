@@ -8,6 +8,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import com.quicklib.android.network.DataStatus
 import com.quicklib.android.network.DataWrapper
+import java.lang.StringBuilder
+import kotlin.reflect.full.isSubclassOf
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -27,13 +29,11 @@ import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.eq
 import org.mockito.Captor
 import org.mockito.Mock
+import org.mockito.Mockito.`when` as _when
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when` as _when
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.jupiter.MockitoExtension
-import java.lang.StringBuilder
-import kotlin.reflect.full.isSubclassOf
 
 @ExtendWith(MockitoExtension::class)
 class LocalDataAwareFirstStrategyTest {

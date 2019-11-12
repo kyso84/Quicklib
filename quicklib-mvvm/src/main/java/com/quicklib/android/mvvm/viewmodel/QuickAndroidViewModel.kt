@@ -32,4 +32,9 @@ abstract class QuickAndroidViewModel(application: Application) : AndroidViewMode
             callbacks.notifyCallbacks(this, fieldId, null)
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        callbacks.clear()
+    }
 }

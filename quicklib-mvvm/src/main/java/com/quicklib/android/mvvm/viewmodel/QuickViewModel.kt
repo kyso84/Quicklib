@@ -1,8 +1,8 @@
 package com.quicklib.android.mvvm.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
+import androidx.lifecycle.ViewModel
 
 abstract class QuickViewModel : ViewModel(), Observable {
     @Transient
@@ -32,5 +32,8 @@ abstract class QuickViewModel : ViewModel(), Observable {
         }
     }
 
-    fun onFinish() {}
+    override fun onCleared() {
+        super.onCleared()
+        callbacks.clear()
+    }
 }

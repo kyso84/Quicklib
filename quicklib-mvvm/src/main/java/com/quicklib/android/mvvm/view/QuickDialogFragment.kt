@@ -1,27 +1,42 @@
 package com.quicklib.android.mvvm.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModel
-import com.quicklib.android.mvvm.QuickView
-import com.quicklib.android.mvvm.viewmodel.QuickViewModel
-import java.lang.ref.WeakReference
+import com.quicklib.android.core.common.Const
+import com.quicklib.android.mvvm.QuickSmartView
 
-abstract class QuickDialogFragment<VDB : ViewDataBinding, VM : ViewModel> : DialogFragment(), QuickView<VDB, VM> {
+abstract class QuickDialogFragment<VDB : ViewDataBinding, VM : ViewModel> : DialogFragment(), QuickSmartView<VDB, VM> {
 
-    private var _binding: WeakReference<VDB>? = null
-    private var _viewModel: WeakReference<VM>? = null
+    override var binding: VDB?
+        get() = binding.let { it } ?: run {
+            Log.w(Const.LOG_TAG, "Unable to provide binding object. Maybe you should wait after onBindingReady()")
+            binding
+        }
+        set(value) {
+            binding = value
+        }
+
+    override var viewModel: VM?
+        get() = viewModel.let { it } ?: run {
+            Log.w(Const.LOG_TAG, "Unable to provide viewModel object. Maybe you should wait after onViewReady()")
+            viewModel
+        }
+        set(value) {
+            viewModel = value
+        }
 
     @Throws
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bindingCreated: VDB? = DataBindingUtil.findBinding(view) ?: DataBindingUtil.bind(view)
         bindingCreated?.let { binding ->
-            _binding = WeakReference(binding)
             binding.lifecycleOwner = this
+            this.binding = binding
             onBindingReady(binding)
         } ?: run {
             throw IllegalStateException("Unable to find the binding of your view. You should use DataBindingUtil.inflate()?.root instead of regular inflate()")
@@ -30,21 +45,16 @@ abstract class QuickDialogFragment<VDB : ViewDataBinding, VM : ViewModel> : Dial
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel = getViewModelInstance()
-        _viewModel = WeakReference(viewModel)
-        onViewReady(viewModel, savedInstanceState)
+        getViewModelInstance().let {
+            viewModel = it
+            onViewReady(it, savedInstanceState)
+        }
     }
-
-    protected fun getBinding(): VDB = _binding?.get()?.let { it }
-            ?: run { throw IllegalStateException("Unable to provide binding object. Maybe you should wait after onBindingReady()") }
-
-    protected fun getViewModel(): VM = _viewModel?.get()?.let { it }
-            ?: run { throw IllegalStateException("Unable to provide viewModel object. Maybe you should wait after onViewReady()") }
 
     override fun onDestroy() {
         super.onDestroy()
-        _viewModel?.clear()
-        _binding?.clear()
+        binding = null
+        viewModel = null
     }
 
     override fun onBindingReady(binding: VDB) {}

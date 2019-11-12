@@ -33,6 +33,7 @@ dependencies {
     implementation("com.google.code.gson:gson:$gsonVersion")
     implementation("androidx.annotation:annotation:$androidxAnnotationVersion")
     implementation("androidx.appcompat:appcompat:$androidxAppCompatVersion")
+    implementation 'com.google.android.material:material:1.0.0@aar'
 }
 apply from: '../publish.gradle'
 repositories {
