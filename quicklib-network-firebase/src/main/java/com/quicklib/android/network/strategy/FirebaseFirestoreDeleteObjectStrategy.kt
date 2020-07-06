@@ -12,7 +12,7 @@ abstract class FirebaseFirestoreDeleteObjectStrategy<T>(private val document: Do
     private fun write() = mainScope.launch {
         try {
             document.delete()
-                    .addOnSuccessListener { res ->
+                    .addOnSuccessListener { _ ->
                         liveData.postValue(DataWrapper(status = DataStatus.DELETED, localData = true, strategy = this@FirebaseFirestoreDeleteObjectStrategy::class))
                     }
                     .addOnFailureListener {

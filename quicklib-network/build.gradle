@@ -67,7 +67,7 @@ dependencies {
     kapt("androidx.lifecycle:lifecycle-compiler:$androidxLifeCycleVersion")
 
     // Unit Tests
-    testImplementation ("androidx.arch.core:core-testing:$androidxLifeCycleVersion")
+//    testImplementation ("androidx.arch.core:core-testing:$androidxLifeCycleVersion")
     testImplementation ("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testImplementation ("org.junit.jupiter:junit-jupiter-params:$junitVersion")
     testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:$junitVersion")

@@ -1,0 +1,47 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
+apply plugin: "androidx.navigation.safeargs"
+apply plugin: "maven-publish"
+apply plugin: "signing"
+apply plugin: "maven"
+apply from: "../publish.gradle"
+apply from: "../ktlint.gradle"
+
+android {
+    compileSdkVersion commonCompileSdkVersion.toInteger()
+    buildToolsVersion commonBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion commonMinSdkVersion.toInteger()
+        targetSdkVersion commonTargetSdkVersion.toInteger()
+        versionCode projectVersionCode.toInteger()
+        versionName projectVersionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation("javax.inject:javax.inject:1")
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":quicklib-core")
+
+    // KTlint
+    ktlint("com.pinterest:ktlint:$ktlintVersion")
+    // Firebase
+    implementation("com.google.firebase:firebase-analytics:$firebaseAnalyticsVersion")
+    // Timber
+    implementation("com.jakewharton.timber:timber:$timberVersion")
+}

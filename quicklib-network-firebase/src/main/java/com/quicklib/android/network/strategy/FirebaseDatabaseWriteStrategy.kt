@@ -30,7 +30,7 @@ abstract class FirebaseDatabaseWriteStrategy<T>(private val databaseRef: Databas
                 }
             }
 
-            path.setValue(value) { error, ref ->
+            path.setValue(value) { error, _ ->
                 error?.let {
                     liveData.postValue(DataWrapper(value = null, status = DataStatus.ERROR, error = it.toException(), localData = false, warning = null, timestamp = System.currentTimeMillis(), strategy = this@FirebaseDatabaseWriteStrategy::class))
                 } ?: run {
