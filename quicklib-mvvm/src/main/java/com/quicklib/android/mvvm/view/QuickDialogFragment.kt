@@ -12,22 +12,22 @@ import com.quicklib.android.mvvm.QuickSmartView
 
 abstract class QuickDialogFragment<VDB : ViewDataBinding, VM : ViewModel> : DialogFragment(), QuickSmartView<VDB, VM> {
 
-    override var binding: VDB?
+    override var binding: VDB? = null
         get() = binding.let { it } ?: run {
             Log.w(Const.LOG_TAG, "Unable to provide binding object. Maybe you should wait after onBindingReady()")
-            binding
+            null
         }
         set(value) {
-            binding = value
+            field = value
         }
 
-    override var viewModel: VM?
+    override var viewModel: VM? = null
         get() = viewModel.let { it } ?: run {
             Log.w(Const.LOG_TAG, "Unable to provide viewModel object. Maybe you should wait after onViewReady()")
-            viewModel
+            null
         }
         set(value) {
-            viewModel = value
+            field = value
         }
 
     @Throws
